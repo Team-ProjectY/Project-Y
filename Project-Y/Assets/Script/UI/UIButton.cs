@@ -1,12 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class UIButton : Button
 {
-    [Header("Sound")]
     [SerializeField] private AudioClip clickSound;
     [SerializeField] private AudioClip hoverSound;
+
+    [SerializeField] private ButtonType buttonType;
+
+    [SerializeField] private GameObject enableObject;
+    [SerializeField] private GameObject disableObject;
+
+    [SerializeField] private string nextSceneName;
 
     private SoundManager soundManager;
 
@@ -41,5 +48,49 @@ public class UIButton : Button
         // 사운드
         if (clickSound != null)
             soundManager.SFXPlay("UIClick", clickSound);
+
+        // 타입별 동작
+        switch (buttonType)
+        {
+            case ButtonType.ChangeCanvas:
+                ChangeObject();
+                break;
+
+            case ButtonType.OpenPopup:
+                if (enableObject != null)
+                    enableObject.SetActive(true);
+                break;
+
+            case ButtonType.ClosePopup:
+                if (disableObject != null)
+                    disableObject.SetActive(false);
+                break;
+
+            case ButtonType.GoScene:
+                SceneManager.LoadScene(nextSceneName);
+                break;
+
+            case ButtonType.Quit:
+                Application.Quit();
+                break;
+        }
     }
+
+    private void ChangeObject()
+    {
+        if (disableObject != null)
+            disableObject.SetActive(false);
+
+        if (enableObject != null)
+            enableObject.SetActive(true);
+    }
+}
+public enum ButtonType
+{
+    None,
+    ChangeCanvas,
+    OpenPopup,
+    ClosePopup,
+    GoScene,
+    Quit
 }
