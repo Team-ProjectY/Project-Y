@@ -71,9 +71,18 @@ public class UIButton : Button
                 break;
 
             case ButtonType.Quit:
-                Application.Quit();
+                QuitGame();
                 break;
         }
+    }
+
+    private void QuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     private void ChangeObject()

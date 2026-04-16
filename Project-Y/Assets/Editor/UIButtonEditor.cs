@@ -49,6 +49,7 @@ public class UIButtonEditor : ButtonEditor
             case ButtonType.ChangeCanvas:
 
             case ButtonType.OpenPopup:
+                EditorGUILayout.PropertyField(enableObject, new GUIContent("Popup To Close"));
                 EditorGUILayout.PropertyField(enableObject, new GUIContent("Popup To Open"));
                 break;
 
