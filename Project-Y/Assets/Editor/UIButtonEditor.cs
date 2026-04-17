@@ -47,9 +47,11 @@ public class UIButtonEditor : ButtonEditor
         switch (type)
         {
             case ButtonType.ChangeCanvas:
+                EditorGUILayout.PropertyField(disableObject, new GUIContent("Object To Disable"));
+                EditorGUILayout.PropertyField(enableObject, new GUIContent("Object To Enable"));
+                break;
 
             case ButtonType.OpenPopup:
-                EditorGUILayout.PropertyField(enableObject, new GUIContent("Popup To Close"));
                 EditorGUILayout.PropertyField(enableObject, new GUIContent("Popup To Open"));
                 break;
 
