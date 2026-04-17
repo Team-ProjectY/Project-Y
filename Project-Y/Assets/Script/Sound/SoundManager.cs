@@ -54,7 +54,7 @@ public class SoundManager : MonoBehaviour
         bgmSource.Stop();
     }
 
-    public void SFXPlay(string name, AudioClip clip)
+    public void SFXPlay(AudioClip clip)
     {
         if (clip == null || sfxSource == null) return;
 
