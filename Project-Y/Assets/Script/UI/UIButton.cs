@@ -28,7 +28,7 @@ public class UIButton : Button
         base.OnPointerEnter(eventData);
 
         if (hoverSound != null)
-            soundManager.SFXPlay("UIHover", hoverSound);
+            soundManager.SFXPlay(hoverSound);
     }
 
     public override void OnPointerClick(PointerEventData eventData)
@@ -47,7 +47,7 @@ public class UIButton : Button
     {
         // 사운드
         if (clickSound != null)
-            soundManager.SFXPlay("UIClick", clickSound);
+            soundManager.SFXPlay(clickSound);
 
         // 타입별 동작
         switch (buttonType)
