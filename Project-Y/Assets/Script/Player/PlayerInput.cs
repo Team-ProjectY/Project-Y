@@ -5,7 +5,7 @@ public class PlayerInput : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
     private Vector3 _movedir;
-    void Update()
+    void FixedUpdate()
     {
         _playerMovement.Move(_movedir);
     }
