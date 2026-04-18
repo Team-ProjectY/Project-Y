@@ -14,5 +14,9 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
     }
 
-
+    public void Move(Vector3 movedir)
+    {
+        _rigidbody.linearVelocity = 
+            new Vector3(movedir.x, _rigidbody.linearVelocity.y, movedir.z);
+    }
 }
