@@ -14,7 +14,7 @@ public class CameraRotationController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked; // 마우스 고정
         Cursor.visible = false;
-        _player = GameObject.Find("Pascal");
+        _player = GameObject.Find("Player");
         //만일 카메라가 Player의 자식계층 오브젝트가 아닐때 방지
     }
     void Update()
