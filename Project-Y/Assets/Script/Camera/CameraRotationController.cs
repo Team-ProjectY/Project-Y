@@ -8,14 +8,17 @@ public class CameraRotationController : MonoBehaviour
     private float _currentX;
     private float _rotationX;
     private float _rotationY;
-    private GameObject _player;
+    [SerializeField] private GameObject _player;
 
     void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked; // 마우스 고정
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        _player = GameObject.Find("Player");
-        //만일 카메라가 Player의 자식계층 오브젝트가 아닐때 방지
+
+        if (_player == null)
+        {
+            _player = GameObject.FindWithTag("Player");
+        }
     }
     void Update()
     {
