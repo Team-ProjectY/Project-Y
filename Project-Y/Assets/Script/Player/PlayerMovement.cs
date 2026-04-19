@@ -15,10 +15,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
-        TryGetComponent<Rigidbody>(out _rigidbody); 
-        TryGetComponent<CapsuleCollider>(out _collider);
+        _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.freezeRotation = true;
-        _rayDistance = _collider != null ? (_collider.height / 2f) + 0.1f : 1.1f;
+
+        if (TryGetComponent<CapsuleCollider>(out _collider))
+            _rayDistance = (_collider.height / 2f) + 0.1f;
+        else
+            _rayDistance = 1.1f;
         _layerMask = LayerMask.GetMask("Ground");
     }
 
