@@ -31,7 +31,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(Vector3 movedir)
     {
-        _rigidbody.linearVelocity = 
-            new Vector3(movedir.x * _normalspeed, _rigidbody.linearVelocity.y, movedir.z * _normalspeed);
+        // 카메라 기준으로 이동 방향 변환
+        Transform cam = Camera.main.transform;
+
+        Vector3 forward = cam.forward;
+        Vector3 right = cam.right;
+
+        // Y축 제거 (경사면에서 위로 날아가지 않도록)
+        forward.y = 0f;
+        right.y = 0f;
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 worldDir = (forward * movedir.z + right * movedir.x).normalized;
+
+        _rigidbody.linearVelocity =
+            new Vector3(worldDir.x * _normalspeed, _rigidbody.linearVelocity.y, worldDir.z * _normalspeed);
     }
 }

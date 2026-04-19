@@ -206,12 +206,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335631280}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1403663171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &335631284
 MonoBehaviour:
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 1403663165}
   - component: {fileID: 1403663172}
   m_Layer: 0
-  m_Name: pascal
+  m_Name: Pascal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -619,7 +619,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 335631283}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1403663172
@@ -634,6 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d470e23884a6ffb48b2ac17461b22fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cameraRotationController: {fileID: 335631284}
 --- !u!1 &1461170556
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +649,7 @@ GameObject:
   - component: {fileID: 1461170558}
   - component: {fileID: 1461170557}
   m_Layer: 8
-  m_Name: ground
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -747,7 +749,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 335631283}
   - {fileID: 911455020}
   - {fileID: 1461170560}
   - {fileID: 1403663171}

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraRotationController : MonoBehaviour
 {
@@ -8,11 +8,14 @@ public class CameraRotationController : MonoBehaviour
     private float _currentX;
     private float _rotationX;
     private float _rotationY;
+    private GameObject _player;
 
     void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked; // ���콺 ����
+        Cursor.lockState = CursorLockMode.Locked; // 마우스 고정
         Cursor.visible = false;
+        _player = GameObject.Find("Pascal");
+        //만일 카메라가 Player의 자식계층 오브젝트가 아닐때 방지
     }
     void Update()
     {
@@ -20,8 +23,10 @@ public class CameraRotationController : MonoBehaviour
         _currentX = _mousepos.x * _mouseSensitivity * Time.deltaTime;
         _rotationX -= _currentY;
         _rotationY += _currentX;
-        _rotationY = Mathf.Clamp(_rotationY, -85f, 90f);
 
-        transform.rotation = Quaternion.Euler(_rotationX, _rotationY, transform.rotation.z);
+        _rotationX = Mathf.Clamp(_rotationX, -85f, 90f);
+
+        transform.localRotation = Quaternion.Euler(_rotationX, _rotationY, 0f);
+        _player.transform.rotation = Quaternion.Euler(0f, _rotationY, 0f);
     }
 }
