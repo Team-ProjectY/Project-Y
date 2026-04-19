@@ -226,6 +226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mousepos: {x: 0, y: 0}
+  _mouseSensitivity: 10
+  _player: {fileID: 1403663163}
 --- !u!114 &335631285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,6 +506,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b4863730348a64096e273c39f34c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpForce: 5.69
+  _normalspeed: 10
+  _isGrounded: 0
+  _rayDistance: 0
+  _collider: {fileID: 0}
 --- !u!54 &1403663167
 Rigidbody:
   m_ObjectHideFlags: 0
