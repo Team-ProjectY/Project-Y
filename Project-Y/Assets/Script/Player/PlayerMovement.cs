@@ -8,11 +8,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool _isGrounded;
     [SerializeField] private float _rayDistance;
 
-    private LayerMask _layerMask;//레이어 마스크 캐싱하기 위한 변수
-    private Transform _transform;//Move함수에 있는 Transform값을 캐싱하기 위한 변수
+    //레이어 마스크 캐싱하기 위한 변수
+    private LayerMask _layerMask;
+    
+    //Move함수에 있는 Transform값을 캐싱하기 위한 변수
+    private Transform _transform;
+    
     private Rigidbody _rigidbody;
-    [SerializeField] private CapsuleCollider _collider;
+    
     //이 콜라이더는 임시용입니다 플레이어에 들어갈 콜라이더로 변경해야됩니다.
+    [SerializeField] private CapsuleCollider _collider;
+    
 
     void Awake()
     {

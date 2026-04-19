@@ -3,9 +3,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
-    private PlayerMovement _playerMovement;//PlayerMovement에 있는 함수들을 쓰기위해 가져옴
-    [SerializeField ]private CameraRotationController _cameraRotationController;//인스펙터에서 가져오기(추후에 수정가능성 있음)
-    private Vector3 _movedir;//Vector3 입력값을 받고 함수에 전달하기 위한 변수
+    //PlayerMovement에 있는 함수들을 쓰기위해 가져옴
+    private PlayerMovement _playerMovement;
+
+    //인스펙터에서 가져오기(추후에 수정가능성 있음)
+    [SerializeField ]private CameraRotationController _cameraRotationController;
+    
+    //Vector3 입력값을 받고 함수에 전달하기 위한 변수
+    private Vector3 _movedir;
     void Awake()
     {
         TryGetComponent<PlayerMovement>(out _playerMovement);
