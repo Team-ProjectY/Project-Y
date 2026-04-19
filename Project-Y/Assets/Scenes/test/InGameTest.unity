@@ -225,9 +225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b59dece370824488bf4b0585672487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mousepos: {x: 0, y: 0}
-  _mouseSensitivity: 10
-  _player: {fileID: 1403663163}
+  sensitivity: 3
+  playerBody: {fileID: 1403663171}
 --- !u!114 &335631285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,8 +406,8 @@ GameObject:
   - component: {fileID: 1403663168}
   - component: {fileID: 1403663167}
   - component: {fileID: 1403663166}
-  - component: {fileID: 1403663165}
   - component: {fileID: 1403663172}
+  - component: {fileID: 1403663165}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -506,11 +505,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b4863730348a64096e273c39f34c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpForce: 5.69
-  _normalspeed: 10
-  _isGrounded: 0
-  _rayDistance: 0
-  _collider: {fileID: 0}
+  speed: 6
+  jumpForce: 5.5
+  _rigidbody: {fileID: 1403663167}
+  _camTransform: {fileID: 335631283}
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!54 &1403663167
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -642,7 +643,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d470e23884a6ffb48b2ac17461b22fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraRotationController: {fileID: 335631284}
+  _playerMovement: {fileID: 1403663166}
+  _cameraController: {fileID: 335631284}
 --- !u!1 &1461170556
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "dae505f5-c96f-41eb-a7a0-af30ba540eb6",
-                    "expectedControlType": "Vector3",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -36,9 +36,9 @@
             ],
             "bindings": [
                 {
-                    "name": "3D Vector",
+                    "name": "2D Vector",
                     "id": "c7df3f19-260f-4a39-bb49-ed9639656d3d",
-                    "path": "3DVector",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -47,7 +47,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "left",
+                    "name": "Left",
                     "id": "a5ecadb3-3c58-45b3-9658-8740820b11c4",
                     "path": "<Keyboard>/a",
                     "interactions": "",
@@ -58,7 +58,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
+                    "name": "Right",
                     "id": "0eae13a0-14ae-410c-a873-edded15fcb19",
                     "path": "<Keyboard>/d",
                     "interactions": "",
@@ -69,7 +69,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "forward",
+                    "name": "Up",
                     "id": "270677f5-1ad2-4833-8d6b-8e6d58ea16c9",
                     "path": "<Keyboard>/w",
                     "interactions": "",
@@ -80,7 +80,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "backward",
+                    "name": "Down",
                     "id": "130aa67c-8805-4e9c-ab86-d112bd79ee85",
                     "path": "<Keyboard>/s",
                     "interactions": "",

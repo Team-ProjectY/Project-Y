@@ -2,39 +2,41 @@
 
 public class CameraRotationController : MonoBehaviour
 {
-    //PlayerInput에서 Mouse/Delta(Vector2)값을 받아오기 위한 변수
-    [SerializeField] public Vector2 _mousepos;
+    [SerializeField] private float sensitivity = 200f;
+    [SerializeField] private Transform playerBody;
 
-    //마우스 감도
-    [SerializeField] private float _mouseSensitivity = 10f;
-    private float _currentY;
-    private float _currentX;
-    private float _rotationX;
-    private float _rotationY;
+    private Vector2 _lookInput;
 
-    //Player오브젝트를 받기 위한 변수    
-    [SerializeField] private GameObject _player;
+    private float _xRotation;
+    private float _yRotation;
+
+    public void SetLookInput(Vector2 input) => _lookInput = input;
 
     void Awake()
     {
+        // 게임 시작 시 커서를 화면 중앙에 고정 및 숨김
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        if (_player == null)
-        {
-            _player = GameObject.FindWithTag("Player");
-        }
+        // 인스펙터에서 미할당 시 플레이어를 자동 참조
+        if (playerBody == null)
+            playerBody = transform.parent;
     }
+
+
     void Update()
     {
-        _currentY = _mousepos.y * _mouseSensitivity * Time.deltaTime;
-        _currentX = _mousepos.x * _mouseSensitivity * Time.deltaTime;
-        _rotationX -= _currentY;
-        _rotationY += _currentX;
+        // 감도와 프레임 독립성을 적용한 이번 프레임의 회전량 계산
+        float mouseX = _lookInput.x * sensitivity * Time.deltaTime;
+        float mouseY = _lookInput.y * sensitivity * Time.deltaTime;
 
-        _rotationX = Mathf.Clamp(_rotationX, -85f, 90f);
+        _yRotation += mouseX;           // 좌우 회전 누적
+        _xRotation -= mouseY;           // 상하 회전 누적 (마우스 Y와 카메라 회전 방향이 반대라 -= 사용)
+        _xRotation = Mathf.Clamp(_xRotation, -85f, 85f);   // 고개를 너무 위아래로 꺾지 못하도록 제한
 
-        transform.localRotation = Quaternion.Euler(_rotationX, _rotationY, 0f);
-        _player.transform.rotation = Quaternion.Euler(0f, _rotationY, 0f);
+        // 카메라 : 상하 회전만 담당 (로컬 기준, y·z축 고정)
+        transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+        // 플레이어 몸체 : 좌우 회전만 담당 (월드 기준, x·z축 고정)
+        playerBody.rotation = Quaternion.Euler(0f, _yRotation, 0f);
     }
 }

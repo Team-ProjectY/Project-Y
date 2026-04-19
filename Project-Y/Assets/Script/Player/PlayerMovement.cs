@@ -3,63 +3,82 @@
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _jumpForce = 5.7f;
-    [SerializeField] private float _normalspeed = 10f;
-    [SerializeField] private bool _isGrounded;
-    [SerializeField] private float _rayDistance;
+    [SerializeField] private float speed = 6f;
+    [SerializeField] private float jumpForce = 5.5f;
 
-    //레이어 마스크 캐싱하기 위한 변수
-    private LayerMask _layerMask;
-    
-    //Move함수에 있는 Transform값을 캐싱하기 위한 변수
-    private Transform _transform;
-    
-    private Rigidbody _rigidbody;
-    
-    //이 콜라이더는 임시용입니다 플레이어에 들어갈 콜라이더로 변경해야됩니다.
-    [SerializeField] private CapsuleCollider _collider;
-    
+    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private Transform _camTransform;
+
+    private Vector2 _moveInput;
+
+    private bool _isGrounded;
+    // todo : 하드코딩 수정필요
+    private float _rayDistance = 1.1f;
+    [SerializeField] private LayerMask _groundMask;
+
+    private bool _jumpRequested;
 
     void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
-        _rigidbody.freezeRotation = true;
-
-        if (TryGetComponent<CapsuleCollider>(out _collider))
-            _rayDistance = (_collider.height / 2f) + 0.1f;
-        else
-            _rayDistance = 1.1f;
-        _layerMask = LayerMask.GetMask("Ground");
+        // 인스펙터에서 할당되지 않은 경우 자동으로 컴포넌트 참조
+        if (_rigidbody == null)
+            _rigidbody = GetComponent<Rigidbody>();
+        if (_camTransform == null)
+            _camTransform = Camera.main.transform;
     }
 
-    void FixedUpdate()
+    void Start()
     {
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _rayDistance, _layerMask);
+        _rigidbody.freezeRotation = true;
     }
+
+    private void FixedUpdate()
+    {
+        CheckGround();
+        Move();
+        if (_jumpRequested)
+        {
+            Jump();
+            _jumpRequested = false;
+        }
+    }
+
+
+    public void RequestJump() => _jumpRequested = true;
 
     public void Jump()
     {
-        if(_isGrounded)
-            _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        if (!_isGrounded) return;
+        _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
-    public void Move(Vector3 movedir)
+
+    public void SetMoveInput(Vector2 input) => _moveInput = input;
+
+    private void Move()
     {
-        // 카메라 기준으로 이동 방향 변환
-        _transform = Camera.main.transform;
+        // 카메라의 forward/right를 기준으로 이동 방향 계산
+        Vector3 forward = _camTransform.forward;
+        Vector3 right = _camTransform.right;
 
-        Vector3 forward = _transform.forward;
-        Vector3 right = _transform.right;
+        // 수직 성분 제거 (경사면에서도 수평 이동 유지)
+        forward.y = 0;
+        right.y = 0;
 
-        // Y축 제거 (경사면에서 위로 날아가지 않도록)
-        forward.y = 0f;
-        right.y = 0f;
         forward.Normalize();
         right.Normalize();
 
-        Vector3 worldDir = (forward * movedir.z + right * movedir.x).normalized;
+        // 입력값과 카메라 방향을 조합해 최종 이동 방향 산출
+        Vector3 dir = forward * _moveInput.y + right * _moveInput.x;
 
-        _rigidbody.linearVelocity =
-            new Vector3(worldDir.x * _normalspeed, _rigidbody.linearVelocity.y, worldDir.z * _normalspeed);
+        Vector3 velocity = dir * speed;
+        // y축 속도는 유지 (중력 및 점프 영향 보존)
+        _rigidbody.linearVelocity = new Vector3(velocity.x, _rigidbody.linearVelocity.y, velocity.z);
+    }
+
+
+    private void CheckGround()
+    {
+        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _rayDistance, _groundMask);
     }
 }
