@@ -1,17 +1,19 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     private float _jumpForce = 10f;
+    private float _normalspeed = 10f;
     private bool _isGrounded;
     private float _rayDistance;
     private CapsuleCollider _collider;
-    //ÀÌ Äİ¶óÀÌ´õ´Â ÀÓ½Ã¿ëÀÔ´Ï´Ù ÇÃ·¹ÀÌ¾î¿¡ µé¾î°¥ Äİ¶óÀÌ´õ·Î º¯°æÇØ¾ßµË´Ï´Ù
+    //ì´ ì½œë¼ì´ë”ëŠ” ì„ì‹œìš©ì…ë‹ˆë‹¤ í”Œë ˆì´ì–´ì— ë“¤ì–´ê°ˆ ì½œë¼ì´ë”ë¡œ ë³€ê²½í•´ì•¼ë©ë‹ˆë‹¤.
     void Awake()
     {
-        TryGetComponent<Rigidbody>(out _rigidbody);
+        TryGetComponent<Rigidbody>(out _rigidbody); 
+        TryGetComponent<CapsuleCollider>(out _collider);
         _rigidbody.freezeRotation = true;
         _rayDistance = _collider != null ? (_collider.height / 2f) + 0.1f : 1.1f;
     }
@@ -30,6 +32,6 @@ public class PlayerMovement : MonoBehaviour
     public void Move(Vector3 movedir)
     {
         _rigidbody.linearVelocity = 
-            new Vector3(movedir.x, _rigidbody.linearVelocity.y, movedir.z);
+            new Vector3(movedir.x * _normalspeed, _rigidbody.linearVelocity.y, movedir.z * _normalspeed);
     }
 }
