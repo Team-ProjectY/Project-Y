@@ -3,7 +3,7 @@
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _jumpForce = 10f;
+    [SerializeField] private float _jumpForce = 5.7f;
     [SerializeField] private float _normalspeed = 10f;
     [SerializeField] private bool _isGrounded;
     [SerializeField] private float _rayDistance;
