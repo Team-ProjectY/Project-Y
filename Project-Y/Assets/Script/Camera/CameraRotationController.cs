@@ -2,8 +2,8 @@
 
 public class CameraRotationController : MonoBehaviour
 {
-    public Vector2 _mousepos;
-    private float _mouseSensitivity = 10f;
+    [SerializeField] public Vector2 _mousepos;
+    [SerializeField] private float _mouseSensitivity = 10f;
     private float _currentY;
     private float _currentX;
     private float _rotationX;

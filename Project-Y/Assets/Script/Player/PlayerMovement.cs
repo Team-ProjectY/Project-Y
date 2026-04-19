@@ -3,10 +3,10 @@
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    private float _jumpForce = 10f;
-    private float _normalspeed = 10f;
-    private bool _isGrounded;
-    private float _rayDistance;
+    [SerializeField] private float _jumpForce = 10f;
+    [SerializeField] private float _normalspeed = 10f;
+    [SerializeField] private bool _isGrounded;
+    [SerializeField] private float _rayDistance;
     private LayerMask _layerMask;
 
     private Rigidbody _rigidbody;
