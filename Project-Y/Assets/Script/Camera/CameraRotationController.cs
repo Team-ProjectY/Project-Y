@@ -3,12 +3,16 @@
 public class CameraRotationController : MonoBehaviour
 {
     [SerializeField] public Vector2 _mousepos;
-    [SerializeField] private float _mouseSensitivity = 10f;
+    //PlayerInput에서 Mouse/Delta(Vector2)값을 받아오기 위한 변수
+
+    [SerializeField] private float _mouseSensitivity = 10f;//마우스 감도
     private float _currentY;
     private float _currentX;
     private float _rotationX;
     private float _rotationY;
+    
     [SerializeField] private GameObject _player;
+    //Player오브젝트를 받기 위한 변수
 
     void Awake()
     {
