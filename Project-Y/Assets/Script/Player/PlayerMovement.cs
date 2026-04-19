@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rayDistance;
 
     private LayerMask _layerMask;//레이어 마스크 캐싱하기 위한 변수
+    private Transform _transform;//Move함수에 있는 Transform값을 캐싱하기 위한 변수
     private Rigidbody _rigidbody;
     [SerializeField] private CapsuleCollider _collider;
     //이 콜라이더는 임시용입니다 플레이어에 들어갈 콜라이더로 변경해야됩니다.
@@ -39,10 +40,10 @@ public class PlayerMovement : MonoBehaviour
     public void Move(Vector3 movedir)
     {
         // 카메라 기준으로 이동 방향 변환
-        Transform cam = Camera.main.transform;
+        _transform = Camera.main.transform;
 
-        Vector3 forward = cam.forward;
-        Vector3 right = cam.right;
+        Vector3 forward = _transform.forward;
+        Vector3 right = _transform.right;
 
         // Y축 제거 (경사면에서 위로 날아가지 않도록)
         forward.y = 0f;
