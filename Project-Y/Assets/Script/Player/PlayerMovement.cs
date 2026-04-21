@@ -3,16 +3,20 @@
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 6f;
+    [Header("속도")]
+    [SerializeField] private float walkSpeed = 4f;
+    [SerializeField] private float runSpeed = 7f;
+
     [SerializeField] private float jumpForce = 5.5f;
 
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Transform _camTransform;
 
     private Vector2 _moveInput;
+    private bool _isRunning;
 
     private bool _isGrounded;
-    // todo : 하드코딩 수정필요
+    // todo : 레이 길이 하드코딩 수정필요
     private float _rayDistance = 1.1f;
     [SerializeField] private LayerMask _groundMask;
 
@@ -35,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         CheckGround();
-        Move();
+        HandleMovement();
         if (_jumpRequested)
         {
             Jump();
@@ -44,7 +48,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    // PlayerInput에서 호출
     public void RequestJump() => _jumpRequested = true;
+    public void SetMoveInput(Vector2 input) => _moveInput = input;
+    public void SetRunning(bool isRunning) => _isRunning = isRunning;
+
 
     public void Jump()
     {
@@ -52,30 +60,29 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
-
-    public void SetMoveInput(Vector2 input) => _moveInput = input;
-
-    private void Move()
+    private void HandleMovement()
     {
-        // 카메라의 forward/right를 기준으로 이동 방향 계산
         Vector3 forward = _camTransform.forward;
         Vector3 right = _camTransform.right;
 
-        // 수직 성분 제거 (경사면에서도 수평 이동 유지)
         forward.y = 0;
         right.y = 0;
 
         forward.Normalize();
         right.Normalize();
 
-        // 입력값과 카메라 방향을 조합해 최종 이동 방향 산출
         Vector3 dir = forward * _moveInput.y + right * _moveInput.x;
 
-        Vector3 velocity = dir * speed;
-        // y축 속도는 유지 (중력 및 점프 영향 보존)
-        _rigidbody.linearVelocity = new Vector3(velocity.x, _rigidbody.linearVelocity.y, velocity.z);
-    }
+        float currentSpeed = _isRunning ? runSpeed : walkSpeed;
 
+        Vector3 velocity = dir * currentSpeed;
+
+        _rigidbody.linearVelocity = new Vector3(
+            velocity.x,
+            _rigidbody.linearVelocity.y,
+            velocity.z
+        );
+    }
 
     private void CheckGround()
     {
