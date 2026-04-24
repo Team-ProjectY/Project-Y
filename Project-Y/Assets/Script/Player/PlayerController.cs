@@ -30,12 +30,11 @@ public class PlayerController : MonoBehaviour
         _groundChecker = _groundCheckerComponent as IGroundChecker;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         HandleMovement();
         HandleJump();
 
-        // 점프는 1프레임 요청 방식
         _jumpRequested = false;
     }
 
