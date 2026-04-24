@@ -536,6 +536,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 09a674b8-d8a8-4c11-9264-75508bb1df04
     m_ActionName: 'Player/Crouch[/Keyboard/c]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1403663172}
+        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
+        m_MethodName: OnProne
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 34397f92-2d67-4b97-82a3-bd40a95a8155
+    m_ActionName: 'Player/Prone[/Keyboard/leftCtrl]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -692,6 +708,7 @@ MonoBehaviour:
   _walkSpeed: 4
   _runSpeed: 7
   _crouchSpeed: 2
+  _proneSpeed: 1
   _jumpForce: 5.5
 --- !u!114 &1403663174
 MonoBehaviour:

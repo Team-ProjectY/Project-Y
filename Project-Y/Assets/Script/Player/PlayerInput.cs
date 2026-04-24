@@ -37,11 +37,18 @@ public class PlayerInput : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
         => _lookInput = context.ReadValue<Vector2>();
 
-    /// <summary> 앉기 </summary>
+    /// <summary> 웅크리기 </summary>
     public void OnCrouch(InputAction.CallbackContext context)
     {
         if (context.started)
             _controller.ToggleCrouch();
+    }
+
+    /// <summary> 엎드리기 </summary>
+    public void OnProne(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            _controller.ToggleProne();
     }
 
     /// <summary> 점프 </summary>
