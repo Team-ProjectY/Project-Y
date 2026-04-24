@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpForce = 5.5f;
 
     // 상태
-    private PostureState _posture = PostureState.Standing; private Vector2 _moveInput;
+    private PostureState _posture = PostureState.Standing;
+    private Vector2 _moveInput;
     private bool _isRunning;
     private bool _jumpRequested;
 
