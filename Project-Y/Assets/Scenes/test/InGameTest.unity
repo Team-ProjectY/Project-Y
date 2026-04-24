@@ -656,8 +656,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d470e23884a6ffb48b2ac17461b22fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1403663173}
-  cameraController: {fileID: 335631284}
+  _controller: {fileID: 1403663173}
+  _cameraController: {fileID: 335631284}
 --- !u!114 &1403663173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,12 +670,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebbc58671a026b449514b34e2413d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 335631283}
-  movementComponent: {fileID: 1403663175}
-  groundCheckerComponent: {fileID: 1403663174}
-  walkSpeed: 4
-  runSpeed: 7
-  jumpForce: 5.5
+  _cam: {fileID: 1403663171}
+  _movementComponent: {fileID: 1403663175}
+  _groundCheckerComponent: {fileID: 1403663174}
+  _walkSpeed: 4
+  _runSpeed: 7
+  _jumpForce: 5.5
 --- !u!114 &1403663174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,8 +688,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e10bc3740ec6c9b4aa16e3f00fc51cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayDistance: 1.1
-  groundMask:
+  _rayDistance: 1.1
+  _groundMask:
     serializedVersion: 2
     m_Bits: 256
 --- !u!114 &1403663175

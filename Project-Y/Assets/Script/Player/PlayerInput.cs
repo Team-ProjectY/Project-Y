@@ -3,39 +3,43 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private PlayerController controller;
-    [SerializeField] private CameraRotationController cameraController;
+    [SerializeField] private PlayerController _controller;
+    [SerializeField] private CameraRotationController _cameraController;
 
-    private Vector2 moveInput;
-    private Vector2 lookInput;
-    private bool isRunning;
+    private Vector2 _moveInput;
+    private Vector2 _lookInput;
+    private bool _isRunning;
 
     void Awake()
     {
-        if (controller == null)
-            controller = GetComponent<PlayerController>();
+        if (_controller == null)
+            _controller = GetComponent<PlayerController>();
     }
 
     void Update()
     {
-        controller.SetMoveInput(moveInput);
-        controller.SetRunning(isRunning);
+        // 입력값 전달
+        _controller.SetMoveInput(_moveInput);
+        _controller.SetRunning(_isRunning);
 
-        cameraController.SetLookInput(lookInput);
+        _cameraController.SetLookInput(_lookInput);
     }
 
     public void OnMove(InputAction.CallbackContext context)
-        => moveInput = context.ReadValue<Vector2>();
+        => _moveInput = context.ReadValue<Vector2>();
+
 
     public void OnRun(InputAction.CallbackContext context)
-        => isRunning = context.ReadValueAsButton();
+        => _isRunning = context.ReadValueAsButton();
+
 
     public void OnLook(InputAction.CallbackContext context)
-        => lookInput = context.ReadValue<Vector2>();
+        => _lookInput = context.ReadValue<Vector2>();
+
 
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.started)
-            controller.RequestJump();
+            _controller.RequestJump();
     }
 }

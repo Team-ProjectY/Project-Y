@@ -2,61 +2,74 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Transform cam;
-    [SerializeField] private MonoBehaviour movementComponent;
-    [SerializeField] private MonoBehaviour groundCheckerComponent;
+    [SerializeField] private Transform _cam;
+    // 이동 로직을 담당하는 컴포넌트 (인터페이스로 추상화)
+    [SerializeField] private MonoBehaviour _movementComponent;
+    // 바닥 체크 로직 컴포넌트 (인터페이스로 추상화)
+    [SerializeField] private MonoBehaviour _groundCheckerComponent;
 
-    private IMovement movement;
-    private IGroundChecker groundChecker;
+    private IMovement _movement;
+    private IGroundChecker _groundChecker;
 
-    [SerializeField] private float walkSpeed = 4f;
-    [SerializeField] private float runSpeed = 7f;
-    [SerializeField] private float jumpForce = 5.5f;
+    [SerializeField] private float _walkSpeed = 4f;
+    [SerializeField] private float _runSpeed = 7f;
+    [SerializeField] private float _jumpForce = 5.5f;
 
-    private Vector2 moveInput;
-    private bool isRunning;
-    private bool jumpRequested;
+    private Vector2 _moveInput;
+    private bool _isRunning;
+    private bool _jumpRequested;
 
     void Awake()
     {
-        movement = movementComponent as IMovement;
-        groundChecker = groundCheckerComponent as IGroundChecker;
+        // 인터페이스 캐싱
+        _movement = _movementComponent as IMovement;
+        _groundChecker = _groundCheckerComponent as IGroundChecker;
     }
 
     void Update()
     {
         HandleMovement();
         HandleJump();
-        jumpRequested = false;
+
+        // 점프는 1프레임 요청 방식
+        _jumpRequested = false;
     }
 
+    /// <summary>
+    /// 카메라 기준 이동 처리
+    /// </summary>
     void HandleMovement()
     {
-        Vector3 forward = cam.forward;
-        Vector3 right = cam.right;
+        Vector3 forward = _cam.forward;
+        Vector3 right = _cam.right;
 
+        // 수평 이동만 처리
         forward.y = 0;
         right.y = 0;
 
         forward.Normalize();
         right.Normalize();
 
-        Vector3 dir = forward * moveInput.y + right * moveInput.x;
-        float speed = isRunning ? runSpeed : walkSpeed;
+        // 입력 기반 이동 방향 계산
+        Vector3 dir = forward * _moveInput.y + right * _moveInput.x;
+        float speed = _isRunning ? _runSpeed : _walkSpeed;
 
-        movement.Move(dir, speed);
+        _movement.Move(dir, speed);
     }
 
+    /// <summary>
+    /// 점프 처리 (지면 체크 포함)
+    /// </summary>
     void HandleJump()
     {
-        if (jumpRequested && groundChecker.IsGrounded())
+        if (_jumpRequested && _groundChecker.IsGrounded())
         {
-            movement.Jump(jumpForce);
+            _movement.Jump(_jumpForce);
         }
     }
 
     // Input에서 호출
-    public void SetMoveInput(Vector2 input) => moveInput = input;
-    public void SetRunning(bool value) => isRunning = value;
-    public void RequestJump() => jumpRequested = true;
+    public void SetMoveInput(Vector2 input) => _moveInput = input;
+    public void SetRunning(bool value) => _isRunning = value;
+    public void RequestJump() => _jumpRequested = true;
 }
