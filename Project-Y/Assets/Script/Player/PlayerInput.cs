@@ -25,18 +25,26 @@ public class PlayerInput : MonoBehaviour
         _cameraController.SetLookInput(_lookInput);
     }
 
+    /// <summary> 이동 </summary>
     public void OnMove(InputAction.CallbackContext context)
         => _moveInput = context.ReadValue<Vector2>();
 
-
+    /// <summary> 달리기 </summary>
     public void OnRun(InputAction.CallbackContext context)
         => _isRunning = context.ReadValueAsButton();
 
-
+    /// <summary> 카메라 회전 </summary>
     public void OnLook(InputAction.CallbackContext context)
         => _lookInput = context.ReadValue<Vector2>();
 
+    /// <summary> 앉기 </summary>
+    public void OnCrouch(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            _controller.ToggleCrouch();
+    }
 
+    /// <summary> 점프 </summary>
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.started)

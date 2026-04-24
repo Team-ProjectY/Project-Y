@@ -11,12 +11,16 @@ public class PlayerController : MonoBehaviour
     private IMovement _movement;
     private IGroundChecker _groundChecker;
 
+    // 값
     [SerializeField] private float _walkSpeed = 4f;
     [SerializeField] private float _runSpeed = 7f;
+    [SerializeField] private float _crouchSpeed = 2f;
     [SerializeField] private float _jumpForce = 5.5f;
 
+    // 상태
     private Vector2 _moveInput;
     private bool _isRunning;
+    private bool _isCrouching;
     private bool _jumpRequested;
 
     void Awake()
@@ -43,16 +47,20 @@ public class PlayerController : MonoBehaviour
         Vector3 forward = _cam.forward;
         Vector3 right = _cam.right;
 
-        // 수평 이동만 처리
         forward.y = 0;
         right.y = 0;
 
         forward.Normalize();
         right.Normalize();
 
-        // 입력 기반 이동 방향 계산
         Vector3 dir = forward * _moveInput.y + right * _moveInput.x;
-        float speed = _isRunning ? _runSpeed : _walkSpeed;
+
+        // 상태별 속도 결정
+        float speed;
+        if (_isCrouching)
+            speed = _crouchSpeed;
+        else
+            speed = _isRunning ? _runSpeed : _walkSpeed;
 
         _movement.Move(dir, speed);
     }
@@ -72,4 +80,5 @@ public class PlayerController : MonoBehaviour
     public void SetMoveInput(Vector2 input) => _moveInput = input;
     public void SetRunning(bool value) => _isRunning = value;
     public void RequestJump() => _jumpRequested = true;
+    public void ToggleCrouch() => _isCrouching = !_isCrouching;
 }
