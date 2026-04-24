@@ -419,7 +419,9 @@ GameObject:
   - component: {fileID: 1403663169}
   - component: {fileID: 1403663168}
   - component: {fileID: 1403663167}
-  - component: {fileID: 1403663166}
+  - component: {fileID: 1403663175}
+  - component: {fileID: 1403663174}
+  - component: {fileID: 1403663173}
   - component: {fileID: 1403663172}
   - component: {fileID: 1403663165}
   m_Layer: 0
@@ -457,7 +459,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1403663172}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -473,7 +475,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1403663172}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
@@ -489,7 +491,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1403663172}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
@@ -523,26 +525,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1403663166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403663163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22b4863730348a64096e273c39f34c01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 4
-  runSpeed: 7
-  jumpForce: 5.5
-  _rigidbody: {fileID: 1403663167}
-  _camTransform: {fileID: 335631283}
-  _groundMask:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!54 &1403663167
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -674,8 +656,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d470e23884a6ffb48b2ac17461b22fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovement: {fileID: 1403663166}
-  _cameraController: {fileID: 335631284}
+  controller: {fileID: 1403663173}
+  cameraController: {fileID: 335631284}
+--- !u!114 &1403663173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403663163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebbc58671a026b449514b34e2413d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 335631283}
+  movementComponent: {fileID: 1403663175}
+  groundCheckerComponent: {fileID: 1403663174}
+  walkSpeed: 4
+  runSpeed: 7
+  jumpForce: 5.5
+--- !u!114 &1403663174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403663163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e10bc3740ec6c9b4aa16e3f00fc51cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayDistance: 1.1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &1403663175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403663163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae1827d06b169e4fbe7f9aef11127a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 1403663167}
 --- !u!1 &1578359083 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5434856598229122048, guid: a61e4f2c07b812f4f999d915c5fe96f5, type: 3}
