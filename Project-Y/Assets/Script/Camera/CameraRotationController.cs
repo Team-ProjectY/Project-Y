@@ -2,7 +2,7 @@
 
 public class CameraRotationController : MonoBehaviour
 {
-    [SerializeField] private float sensitivity = 200f;
+    [SerializeField] private float sensitivity = 3;
     [SerializeField] private Transform playerBody;
 
     private Vector2 _lookInput;
