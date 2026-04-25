@@ -185,7 +185,6 @@ GameObject:
   - component: {fileID: 335631282}
   - component: {fileID: 335631281}
   - component: {fileID: 335631285}
-  - component: {fileID: 335631284}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -267,20 +266,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1049936026}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &335631284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335631280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43b59dece370824488bf4b0585672487, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensitivity: 3
-  playerBody: {fileID: 1403663171}
 --- !u!114 &335631285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +373,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1049936026}
+  - component: {fileID: 1049936027}
+  - component: {fileID: 1049936028}
   m_Layer: 0
   m_Name: CameraPivot
   m_TagString: Untagged
@@ -411,6 +398,36 @@ Transform:
   - {fileID: 335631283}
   m_Father: {fileID: 1403663171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1049936027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049936025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43b59dece370824488bf4b0585672487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 3
+  playerBody: {fileID: 1403663171}
+--- !u!114 &1049936028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049936025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2db59ed3137b158489100028c670b9ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _standY: 0.5
+  _crouchY: 0
+  _speed: 10
+  postureProviderComponent: {fileID: 1403663176}
 --- !u!1 &1138512539 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8969795073417560020, guid: a61e4f2c07b812f4f999d915c5fe96f5, type: 3}
@@ -451,9 +468,9 @@ GameObject:
   - component: {fileID: 1403663169}
   - component: {fileID: 1403663168}
   - component: {fileID: 1403663167}
+  - component: {fileID: 1403663176}
   - component: {fileID: 1403663175}
   - component: {fileID: 1403663174}
-  - component: {fileID: 1403663173}
   - component: {fileID: 1403663172}
   - component: {fileID: 1403663165}
   m_Layer: 0
@@ -720,28 +737,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d470e23884a6ffb48b2ac17461b22fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controller: {fileID: 1403663173}
-  _cameraController: {fileID: 335631284}
---- !u!114 &1403663173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403663163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ebbc58671a026b449514b34e2413d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cam: {fileID: 1403663171}
-  _movementComponent: {fileID: 1403663175}
-  _groundCheckerComponent: {fileID: 1403663174}
-  _walkSpeed: 4
-  _runSpeed: 7
-  _crouchSpeed: 2
-  _proneSpeed: 1
-  _jumpForce: 5.5
+  _controller: {fileID: 1403663176}
+  _cameraController: {fileID: 1049936027}
 --- !u!114 &1403663174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -771,6 +768,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 1403663167}
+--- !u!114 &1403663176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403663163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebbc58671a026b449514b34e2413d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cam: {fileID: 1049936026}
+  _movementComponent: {fileID: 1403663175}
+  _groundCheckerComponent: {fileID: 1403663174}
+  _walkSpeed: 4
+  _runSpeed: 7
+  _crouchSpeed: 2
+  _proneSpeed: 1
+  _jumpForce: 5.5
 --- !u!1 &1578359083 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5434856598229122048, guid: a61e4f2c07b812f4f999d915c5fe96f5, type: 3}
