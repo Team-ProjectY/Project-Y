@@ -57,4 +57,22 @@ public class PlayerInput : MonoBehaviour
         if (context.started)
             _controller.RequestJump();
     }
+
+    /// <summary> 발사 </summary>
+    public void OnFire(InputAction.CallbackContext context)
+    {
+
+    }
+
+    /// <summary> 조준 </summary>
+    public void OnAim(InputAction.CallbackContext context)
+    {
+
+    }
+
+    /// <summary> 재장전 </summary>
+    public void OnReload(InputAction.CallbackContext context)
+    {
+
+    }
 }
