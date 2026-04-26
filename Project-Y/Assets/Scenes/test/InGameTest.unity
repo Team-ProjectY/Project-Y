@@ -233,7 +233,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -426,6 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _standY: 0.5
   _crouchY: 0
+  _proneY: -0.5
   _speed: 10
   postureProviderComponent: {fileID: 1403663176}
 --- !u!1 &1138512539 stripped

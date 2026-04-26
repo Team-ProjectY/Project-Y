@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour, IPostureProvider
 
         switch (Posture)
         {
-            case PostureState.Prone:
+            case PostureState.Proning:
                 speed = _proneSpeed;
                 break;
 
@@ -123,10 +123,10 @@ public class PlayerController : MonoBehaviour, IPostureProvider
         if (!IsGrounded())
             return;
 
-        if (Posture == PostureState.Prone)
+        if (Posture == PostureState.Proning)
             Posture = PostureState.Standing;
         else
-            Posture = PostureState.Prone;
+            Posture = PostureState.Proning;
     }
 }
 
