@@ -322,6 +322,7 @@ GameObject:
   - component: {fileID: 384076867}
   - component: {fileID: 384076866}
   - component: {fileID: 384076865}
+  - component: {fileID: 384076868}
   m_Layer: 0
   m_Name: TestGun
   m_TagString: Untagged
@@ -418,6 +419,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384076863}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &384076868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384076863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b340161f7d4dc646a7eb12fb67b9649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data: {fileID: 11400000, guid: e5e8f489dceb7ad47a76a01aa60c7e15, type: 2}
 --- !u!1 &504761505
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,6 +441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 504761506}
+  - component: {fileID: 504761507}
   m_Layer: 0
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -450,6 +465,21 @@ Transform:
   - {fileID: 384076864}
   m_Father: {fileID: 1049936026}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &504761507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504761505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c415e2311aae634889e5f6a40dc371d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weapons:
+  - {fileID: 384076868}
+  _adsController: {fileID: 1049936029}
 --- !u!1 &708413191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3852341972610935857, guid: a61e4f2c07b812f4f999d915c5fe96f5, type: 3}
@@ -544,6 +574,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1049936026}
+  - component: {fileID: 1049936029}
   - component: {fileID: 1049936027}
   - component: {fileID: 1049936028}
   m_Layer: 0
@@ -601,6 +632,19 @@ MonoBehaviour:
   _proneY: -0.5
   _speed: 10
   postureProviderComponent: {fileID: 1403663176}
+--- !u!114 &1049936029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049936025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3adf56565c9dee41a7038286e79ea86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 335631282}
 --- !u!1 &1138512539 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8969795073417560020, guid: a61e4f2c07b812f4f999d915c5fe96f5, type: 3}
@@ -788,8 +832,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 132c7fe5-b2a4-4097-ac62-3f8d316157c8
-    m_ActionName: 'Weapon/Fire[/Mouse/leftButton]'
+    m_ActionId: 945a15bd-0177-461b-888d-a13154037d55
+    m_ActionName: 'Player/Combat/Fire[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1403663172}
@@ -804,8 +848,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: c410c9c4-0624-4ad7-887a-163cd6d01ba5
-    m_ActionName: 'Weapon/Aim[/Mouse/rightButton]'
+    m_ActionId: 7c680285-d1c6-4d95-899a-a322e5d78090
+    m_ActionName: 'Player/Combat/Aim[/Mouse/rightButton]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1403663172}
@@ -820,11 +864,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 9ce6ef61-f314-4437-bfe3-e1d26070a799
-    m_ActionName: 'Weapon/Reload[/Keyboard/r]'
+    m_ActionId: 1a94c163-939a-4d17-be8c-4b2004c7f70c
+    m_ActionName: 'Player/Combat/Reload[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: 0dfc05bb-1cc9-4c15-8004-44470161cf34
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!54 &1403663167
@@ -961,6 +1005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controller: {fileID: 1403663176}
   _cameraController: {fileID: 1049936027}
+  _weaponController: {fileID: 504761507}
 --- !u!114 &1403663174
 MonoBehaviour:
   m_ObjectHideFlags: 0

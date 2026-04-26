@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 536fc8c18d6e68946abc34611b8aebfb, type: 3}
   m_Name: TestGunSO
   m_EditorClassIdentifier: 
-  isAutomatic: 0
-  fireRate: 0
-  magazineSize: 0
-  reloadTime: 0
-  range: 0
-  adsFov: 40
-  adsSpeed: 10
-  sensitivityMultiplier: 0.5
-  hasScope: 0
-  scopeFov: 20
-  recoilX: 0
-  recoilY: 0
+  IsAutomatic: 0
+  FireRate: 0.01
+  MagazineSize: 1
+  ReloadTime: 0.1
+  Range: 1
+  AdsFov: 38.8
+  AdsSpeed: 20
+  SensitivityMultiplier: 0.5
+  HasScope: 1
+  ScopeFov: 31.2
+  RecoilX: 2.1
+  RecoilY: 0
