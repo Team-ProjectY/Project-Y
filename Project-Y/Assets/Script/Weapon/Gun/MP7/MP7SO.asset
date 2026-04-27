@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 536fc8c18d6e68946abc34611b8aebfb, type: 3}
-  m_Name: TestGunSO
+  m_Name: MP7SO
   m_EditorClassIdentifier: 
   IsAutomatic: 0
   FireRate: 0.01
   MagazineSize: 1
   ReloadTime: 0.1
   Range: 1
-  AdsFov: 38.8
-  AdsSpeed: 20
+  AimMode: 0
+  AimFov: 60
+  AimSpeed: 20
   SensitivityMultiplier: 0.5
-  HasScope: 1
-  ScopeFov: 31.2
-  RecoilX: 2.1
+  RecoilX: 0
   RecoilY: 0
