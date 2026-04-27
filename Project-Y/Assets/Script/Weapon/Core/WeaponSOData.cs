@@ -17,8 +17,8 @@ public class WeaponSOData : ScriptableObject
 
     /// <summary> 조준 방식 </summary>
     public AimMode AimMode;
-    /// <summary> ADS 시 카메라 시야각 (FOV) </summary>
-    public float AimFov = 40f;
+    /// <summary> 조준 시 FOV 나누기 값 (1 = 변화 없음, 클수록 줌인 강함) </summary>
+    public float AimFovDivisor = 2f;
     /// <summary> ADS 전환 속도 (값이 클수록 빠르게 전환) </summary>
     public float AimSpeed = 10f;
     /// <summary> ADS 시 감도 배율 (마우스 감도 감소 비율) </summary>

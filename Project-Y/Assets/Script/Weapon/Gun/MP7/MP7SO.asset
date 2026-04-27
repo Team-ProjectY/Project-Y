@@ -18,7 +18,7 @@ MonoBehaviour:
   ReloadTime: 0.1
   Range: 1
   AimMode: 0
-  AimFov: 60
+  AimFovDivisor: 1.2
   AimSpeed: 20
   SensitivityMultiplier: 0.5
   RecoilX: 0

@@ -11,7 +11,7 @@ public class WeaponSODataEditor : Editor
     SerializedProperty Range;
 
     SerializedProperty AimMode;
-    SerializedProperty AimFov;
+    SerializedProperty AimFovDivisor;
     SerializedProperty AimSpeed;
     SerializedProperty SensitivityMultiplier;
 
@@ -27,7 +27,7 @@ public class WeaponSODataEditor : Editor
         Range = serializedObject.FindProperty("Range");
 
         AimMode = serializedObject.FindProperty("AimMode");
-        AimFov = serializedObject.FindProperty("AimFov");
+        AimFovDivisor = serializedObject.FindProperty("AimFovDivisor");
         AimSpeed = serializedObject.FindProperty("AimSpeed");
         SensitivityMultiplier = serializedObject.FindProperty("SensitivityMultiplier");
 
@@ -50,7 +50,7 @@ public class WeaponSODataEditor : Editor
 
         DrawHeader("조준", Color.white);
         EditorGUILayout.PropertyField(AimMode, new GUIContent("조준 타입"));
-        EditorGUILayout.Slider(AimFov, 20f, 90f, "조준 FOV");
+        EditorGUILayout.Slider(AimFovDivisor, 1f, 5f, "조준 FOV (나누기 값)");
         EditorGUILayout.Slider(AimSpeed, 1f, 20f, "조준 속도");
         EditorGUILayout.Slider(SensitivityMultiplier, 0.1f, 1f, "감도 배율");
 
