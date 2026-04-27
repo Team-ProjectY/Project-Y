@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPostureProvider
 {
     [SerializeField] private Transform _cam;
     // 이동 로직을 담당하는 컴포넌트 (인터페이스로 추상화)
@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     // 상태
     private PostureState _posture = PostureState.Standing;
+    public PostureState Posture { get { return _posture; } private set { _posture = value; } }
+
     private Vector2 _moveInput;
     private bool _isRunning;
     private bool _jumpRequested;
@@ -57,9 +59,9 @@ public class PlayerController : MonoBehaviour
 
         float speed = _walkSpeed;
 
-        switch (_posture)
+        switch (Posture)
         {
-            case PostureState.Prone:
+            case PostureState.Proning:
                 speed = _proneSpeed;
                 break;
 
@@ -81,7 +83,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void HandleJump()
     {
-        if (_posture != PostureState.Standing)
+        if (Posture != PostureState.Standing)
             return;
 
         if (_jumpRequested && IsGrounded())
@@ -109,10 +111,10 @@ public class PlayerController : MonoBehaviour
         if (!IsGrounded())
             return;
 
-        if (_posture == PostureState.Crouching)
-            _posture = PostureState.Standing;
+        if (Posture == PostureState.Crouching)
+            Posture = PostureState.Standing;
         else
-            _posture = PostureState.Crouching;
+            Posture = PostureState.Crouching;
     }
 
     public void ToggleProne()
@@ -121,10 +123,10 @@ public class PlayerController : MonoBehaviour
         if (!IsGrounded())
             return;
 
-        if (_posture == PostureState.Prone)
-            _posture = PostureState.Standing;
+        if (Posture == PostureState.Proning)
+            Posture = PostureState.Standing;
         else
-            _posture = PostureState.Prone;
+            Posture = PostureState.Proning;
     }
 }
 

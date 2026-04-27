@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private PlayerController _controller;
-    [SerializeField] private CameraRotationController _cameraController;
+    [SerializeField] private LookRotation __cameraLookController;
+    [SerializeField] private WeaponController _weaponController;
 
     private Vector2 _moveInput;
     private Vector2 _lookInput;
@@ -22,7 +23,7 @@ public class PlayerInput : MonoBehaviour
         _controller.SetMoveInput(_moveInput);
         _controller.SetRunning(_isRunning);
 
-        _cameraController.SetLookInput(_lookInput);
+        __cameraLookController.SetInput(_lookInput);
     }
 
     /// <summary> 이동 </summary>
@@ -56,5 +57,31 @@ public class PlayerInput : MonoBehaviour
     {
         if (context.started)
             _controller.RequestJump();
+    }
+
+
+    /// <summary> 발사 </summary>
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            _weaponController.StartFire();
+        else if (context.canceled)
+            _weaponController.StopFire();
+    }
+
+    /// <summary> 조준 </summary>
+    public void OnAim(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            _weaponController.StartAim();
+        else if (context.canceled)
+            _weaponController.StopAim();
+    }
+
+    /// <summary> 재장전 </summary>
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            _weaponController.Reload();
     }
 }
