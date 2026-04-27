@@ -89,7 +89,7 @@ public class CameraMovementBobController : MonoBehaviour
     private void LateUpdate()
     {
         Vector3 basePosition = transform.localPosition - _currentOffset;
-        Quaternion baseRotation = transform.localRotation * Quaternion.Inverse(_currentRotationOffset);
+        Quaternion baseRotation = transform.localRotation;
         bool isActive;
         float speedT;
         Vector3 localHorizontalVelocity;
