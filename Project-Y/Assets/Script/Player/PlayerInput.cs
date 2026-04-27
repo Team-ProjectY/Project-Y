@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private PlayerController _controller;
-    [SerializeField] private CameraRotationController _cameraController;
+    [SerializeField] private LookRotation __cameraLookController;
     [SerializeField] private WeaponController _weaponController;
 
     private Vector2 _moveInput;
@@ -23,7 +23,7 @@ public class PlayerInput : MonoBehaviour
         _controller.SetMoveInput(_moveInput);
         _controller.SetRunning(_isRunning);
 
-        _cameraController.SetLookInput(_lookInput);
+        __cameraLookController.SetInput(_lookInput);
     }
 
     /// <summary> 이동 </summary>

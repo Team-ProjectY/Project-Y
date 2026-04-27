@@ -433,10 +433,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c415e2311aae634889e5f6a40dc371d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cameraRotationController: {fileID: 1049936027}
   _weapons:
   - {fileID: 73758470}
   - {fileID: 1619644249}
   _adsController: {fileID: 1049936029}
+  _currentWeapon: {fileID: 73758470}
 --- !u!1 &708413191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3852341972610935857, guid: a61e4f2c07b812f4f999d915c5fe96f5, type: 3}
@@ -534,6 +536,8 @@ GameObject:
   - component: {fileID: 1049936029}
   - component: {fileID: 1049936027}
   - component: {fileID: 1049936028}
+  - component: {fileID: 1049936031}
+  - component: {fileID: 1049936030}
   m_Layer: 0
   m_Name: CameraPivot
   m_TagString: Untagged
@@ -570,8 +574,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b59dece370824488bf4b0585672487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 3
-  playerBody: {fileID: 1403663171}
+  _playerBody: {fileID: 1403663171}
+  _look: {fileID: 1049936031}
+  _recoil: {fileID: 1049936030}
 --- !u!114 &1049936028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,6 +607,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 335631282}
+--- !u!114 &1049936030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049936025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcd63364a1c345944a06dadb0ad9080b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recoverSpeed: 8
+--- !u!114 &1049936031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049936025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b1805189df409243972f298099b88fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sensitivity: 3
 --- !u!1 &1138512539 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8969795073417560020, guid: a61e4f2c07b812f4f999d915c5fe96f5, type: 3}
@@ -961,7 +992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 1403663176}
-  _cameraController: {fileID: 1049936027}
+  __cameraLookController: {fileID: 1049936031}
   _weaponController: {fileID: 504761507}
 --- !u!114 &1403663174
 MonoBehaviour:
@@ -1346,7 +1377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 856820983299535968, guid: d2c3c13f8fd4ded43ba2d259a1dacf52, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

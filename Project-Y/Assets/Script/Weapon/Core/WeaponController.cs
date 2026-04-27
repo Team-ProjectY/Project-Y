@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    [SerializeField] private CameraRotationController _cameraRotationController;
+
     [SerializeField] private Weapon[] _weapons;
     [SerializeField] private MonoBehaviour _adsController;
     private IADSController _ads;
 
     private int _currentIndex = -1;
-    private Weapon _currentWeapon;
+    [SerializeField] private Weapon _currentWeapon;
 
     void Awake()
     {
@@ -58,6 +60,18 @@ public class WeaponController : MonoBehaviour
 
         _currentWeapon.OnEquip();
 
+        // 의존성 주입
+        if (!_currentWeapon.IsInitialized)
+            _currentWeapon.Init(this);
+
         _ads?.EndADS();
+    }
+
+    /// <summary>
+    /// Weapon에서 호출되는 반동 전달 함수
+    /// </summary>
+    public void ApplyRecoil(float x, float y)
+    {
+        _cameraRotationController.AddRecoil(x, y);
     }
 }

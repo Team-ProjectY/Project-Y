@@ -19,7 +19,7 @@ MonoBehaviour:
   Range: 1
   AimMode: 0
   AimFovDivisor: 1.2
-  AimSpeed: 20
-  SensitivityMultiplier: 0.5
-  RecoilX: 0
+  AimSpeed: 1
+  SensitivityMultiplier: 0.1
+  RecoilX: 2
   RecoilY: 0
