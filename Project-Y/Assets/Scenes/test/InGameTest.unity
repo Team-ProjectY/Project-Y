@@ -538,6 +538,7 @@ GameObject:
   - component: {fileID: 1049936028}
   - component: {fileID: 1049936031}
   - component: {fileID: 1049936030}
+  - component: {fileID: 1049936032}
   m_Layer: 0
   m_Name: CameraPivot
   m_TagString: Untagged
@@ -633,6 +634,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sensitivity: 3
+  _requestIngameCursor: 1
+  _requestOnEnable: 1
+  _requestOnFocus: 1
+  _requestOnLeftClick: 1
+  _cursorPriority: 100
+--- !u!114 &1049936032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049936025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff7e3222c2f700428aa11c38f0a609f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _postureProviderComponent: {fileID: 1403663176}
+  _groundCheckerComponent: {fileID: 1403663174}
+  _movementRigidbody: {fileID: 1403663167}
+  _requireGrounded: 1
+  _moveThreshold: 0.1
+  _walkReferenceSpeed: 4
+  _runReferenceSpeed: 7
+  _walkFrequency: 20
+  _runFrequency: 30
+  _walkAmplitude: {x: 0.02, y: 0.08, z: 0.016}
+  _runAmplitude: {x: 0.04, y: 0.15, z: 0.028}
+  _intensity: 1
+  _recoverSpeed: 10
+  _disableLateralPositionOffset: 1
+  _walkYawAngle: 15
+  _runYawAngle: 15
+  _walkRollAngle: 3.6
+  _runRollAngle: 6.6
+  _rotationApplySpeed: 12
+  _rotationRecoverSpeed: 10
+  _standingMultiplier: 1
+  _crouchingMultiplier: 0.6
+  _proningMultiplier: 0.35
+  _debugStateLog: 0
 --- !u!1 &1138512539 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8969795073417560020, guid: a61e4f2c07b812f4f999d915c5fe96f5, type: 3}
