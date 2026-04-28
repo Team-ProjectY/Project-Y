@@ -12,8 +12,6 @@ public class CameraMovementBobController : MonoBehaviour
     [SerializeField] private MonoBehaviour _postureProviderComponent;
     [Tooltip("지면 체크(IGroundChecker)를 제공하는 컴포넌트")]
     [SerializeField] private MonoBehaviour _groundCheckerComponent;
-    [Tooltip("수평 이동 속도를 읽을 Rigidbody (보통 플레이어 Rigidbody)")]
-    [SerializeField] private Rigidbody _movementRigidbody;
 
     [Header("Movement Condition")]
     [Tooltip("켜면 지면에 있을 때만 bob을 적용합니다")]

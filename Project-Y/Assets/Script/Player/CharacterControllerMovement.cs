@@ -21,19 +21,6 @@ public class CharacterControllerMovement : MonoBehaviour, IMovement
         // 씬에 CharacterController가 빠져 있어도 런타임에서 자동 보강
         if (_characterController == null)
             _characterController = gameObject.AddComponent<CharacterController>();
-
-        // CharacterController 단일 이동 경로를 위해 Rigidbody 물리는 비활성화
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = true;
-            rb.useGravity = false;
-        }
-
-        // CharacterController와 중복 충돌 계산을 피하기 위해 기존 캡슐 콜라이더 비활성화
-        CapsuleCollider capsule = GetComponent<CapsuleCollider>();
-        if (capsule != null)
-            capsule.enabled = false;
     }
 
     private void Update()

@@ -653,7 +653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _postureProviderComponent: {fileID: 1403663176}
   _groundCheckerComponent: {fileID: 1403663174}
-  _movementRigidbody: {fileID: 0}
+  _movementCharacterController: {fileID: 1403663179}
   _requireGrounded: 1
   _moveThreshold: 0.1
   _walkReferenceSpeed: 4
