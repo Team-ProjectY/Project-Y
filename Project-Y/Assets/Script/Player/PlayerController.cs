@@ -28,13 +28,24 @@ public class PlayerController : MonoBehaviour, IPostureProvider
 
     void Awake()
     {
+        // CharacterController 이동을 우선 적용 (이슈 #11 최소 요구사항)
+        if (_movementComponent == null)
+        {
+            CharacterControllerMovement ccMovement = GetComponent<CharacterControllerMovement>();
+            if (ccMovement == null)
+                ccMovement = gameObject.AddComponent<CharacterControllerMovement>();
+
+            _movementComponent = ccMovement;
+        }
+
         // 인터페이스 캐싱
         _movement = _movementComponent as IMovement;
         _groundChecker = _groundCheckerComponent as IGroundChecker;
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        // CharacterController 기반 이동은 Update 루프에서 처리
         HandleMovement();
         HandleJump();
 
