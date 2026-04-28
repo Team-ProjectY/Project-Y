@@ -27,7 +27,9 @@ Project-Y 입니다.
 - Assignees: 일반적으로 자기 자신을 할당한다.
 - Labels: 작업내용의 적절한 종류의 라벨을 선택한다.
   
-**탬플릿**
+<details>
+<summary>탬플릿</summary>
+  
 ## Title
 [Type]: 작업 내용
 - 예: [Feature]: 플레이어 이동 기능 추가
@@ -43,6 +45,7 @@ Project-Y 입니다.
 -
 
 관련 이슈: #번호
+</details>
 
 ## 3. 이슈 올릴 때
 
@@ -50,7 +53,9 @@ Project-Y 입니다.
 - Labels: 작업 성격에 맞는 라벨을 반드시 선택합니다.
 - Type: 작업 성격에 맞는 타입을 반드시 선택합니다.
 
-**템플릿**
+<details>
+<summary>탬플릿</summary>
+  
 ### 개요
 -
 
@@ -63,3 +68,4 @@ Project-Y 입니다.
 ## TO-DO
 - [ ] 작업 1
 - [ ] 작업 2
+</details>
