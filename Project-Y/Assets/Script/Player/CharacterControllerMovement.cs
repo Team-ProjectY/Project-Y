@@ -5,6 +5,7 @@ using UnityEngine;
 /// 최소 기능(수평 이동, 점프, 중력, 충돌)을 제공합니다.
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
+[DefaultExecutionOrder(10)]
 public class CharacterControllerMovement : MonoBehaviour, IMovement
 {
     [SerializeField] private CharacterController _characterController;
@@ -18,9 +19,6 @@ public class CharacterControllerMovement : MonoBehaviour, IMovement
     {
         if (_characterController == null)
             _characterController = GetComponent<CharacterController>();
-        // 씬에 CharacterController가 빠져 있어도 런타임에서 자동 보강
-        if (_characterController == null)
-            _characterController = gameObject.AddComponent<CharacterController>();
     }
 
     private void Update()
@@ -45,7 +43,7 @@ public class CharacterControllerMovement : MonoBehaviour, IMovement
 
     public void Jump(float force)
     {
-        if (_characterController == null || !_characterController.isGrounded)
+        if (_characterController == null)
             return;
 
         // 현재 구현은 jumpForce를 즉시 상향 속도로 사용
