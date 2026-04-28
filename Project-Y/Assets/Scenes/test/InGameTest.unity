@@ -376,6 +376,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7882497576564189891, guid: d2c3c13f8fd4ded43ba2d259a1dacf52, type: 3}
   m_PrefabInstance: {fileID: 7968737144845254160}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &465547228 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4848293950007161323, guid: d2c3c13f8fd4ded43ba2d259a1dacf52, type: 3}
+  m_PrefabInstance: {fileID: 7968737144845254160}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2ef9f7cc7fd28448882fc110e9f563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &504761505
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,8 +417,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1619644248}
   - {fileID: 465547226}
+  - {fileID: 1619644248}
   m_Father: {fileID: 1049936026}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &504761507
@@ -424,10 +435,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraRotationController: {fileID: 1049936027}
   _weapons:
-  - {fileID: 0}
+  - {fileID: 465547228}
   - {fileID: 1619644249}
   _adsController: {fileID: 1049936029}
-  _currentWeapon: {fileID: 0}
+  _currentWeapon: {fileID: 465547228}
 --- !u!1 &708413191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3852341972610935857, guid: a61e4f2c07b812f4f999d915c5fe96f5, type: 3}
