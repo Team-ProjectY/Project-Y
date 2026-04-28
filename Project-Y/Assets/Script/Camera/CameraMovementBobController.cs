@@ -12,6 +12,8 @@ public class CameraMovementBobController : MonoBehaviour
     [SerializeField] private MonoBehaviour _postureProviderComponent;
     [Tooltip("지면 체크(IGroundChecker)를 제공하는 컴포넌트")]
     [SerializeField] private MonoBehaviour _groundCheckerComponent;
+    [Tooltip("수평 이동 속도를 읽을 CharacterController (미할당 시 자동 탐색)")]
+    [SerializeField] private CharacterController _movementCharacterController;
 
     [Header("Movement Condition")]
     [Tooltip("켜면 지면에 있을 때만 bob을 적용합니다")]
@@ -118,15 +120,16 @@ public class CameraMovementBobController : MonoBehaviour
         speedT = 0f;
         localHorizontalVelocity = Vector3.zero;
 
-        if (_movementRigidbody == null)
+        Vector3 horizontalVelocity;
+        Transform velocityReferenceTransform;
+        if (!TryGetHorizontalVelocity(out horizontalVelocity, out velocityReferenceTransform))
         {
-            LogState("No Rigidbody", 0f, false, false);
+            LogState("No Velocity Source", 0f, false, false);
             return Vector3.zero;
         }
 
-        Vector3 horizontalVelocity = _movementRigidbody.linearVelocity;
         horizontalVelocity.y = 0f;
-        localHorizontalVelocity = _movementRigidbody.transform.InverseTransformDirection(horizontalVelocity);
+        localHorizontalVelocity = velocityReferenceTransform.InverseTransformDirection(horizontalVelocity);
 
         float speed = horizontalVelocity.magnitude;
         bool isMoving = speed > _moveThreshold;
@@ -153,6 +156,23 @@ public class CameraMovementBobController : MonoBehaviour
         isActive = true;
         LogState("Active", speed, true, isGrounded);
         return new Vector3(x, y, z);
+    }
+
+    /// <summary>
+    /// 이동 속도 소스(CharacterController)에서 수평 속도를 읽습니다.
+    /// </summary>
+    private bool TryGetHorizontalVelocity(out Vector3 horizontalVelocity, out Transform referenceTransform)
+    {
+        if (_movementCharacterController != null)
+        {
+            horizontalVelocity = _movementCharacterController.velocity;
+            referenceTransform = _movementCharacterController.transform;
+            return true;
+        }
+
+        horizontalVelocity = Vector3.zero;
+        referenceTransform = transform;
+        return false;
     }
 
     /// <summary>
@@ -192,7 +212,7 @@ public class CameraMovementBobController : MonoBehaviour
     }
 
     /// <summary>
-    /// 인터페이스 의존성(Rigidbody, Posture, GroundChecker)을 해석합니다.
+    /// 인터페이스 의존성(Posture, GroundChecker, CharacterController)을 해석합니다.
     /// </summary>
     private void ResolveDependencies()
     {
@@ -229,11 +249,11 @@ public class CameraMovementBobController : MonoBehaviour
             }
         }
 
-        if (_movementRigidbody == null && _postureProviderComponent != null)
-            _movementRigidbody = _postureProviderComponent.GetComponent<Rigidbody>();
+        if (_movementCharacterController == null && _postureProviderComponent != null)
+            _movementCharacterController = _postureProviderComponent.GetComponent<CharacterController>();
 
-        if (_movementRigidbody == null)
-            _movementRigidbody = GetComponentInParent<Rigidbody>();
+        if (_movementCharacterController == null)
+            _movementCharacterController = GetComponentInParent<CharacterController>();
     }
 
     /// <summary>
@@ -249,7 +269,7 @@ public class CameraMovementBobController : MonoBehaviour
 
         _nextLogTime = Time.time + 0.5f;
         Debug.Log(
-            $"[CameraMovementBobController] {state} | speed:{speed:F2} moving:{isMoving} grounded:{isGrounded} rb:{(_movementRigidbody != null)}",
+            $"[CameraMovementBobController] {state} | speed:{speed:F2} moving:{isMoving} grounded:{isGrounded} cc:{(_movementCharacterController != null)}",
             this
         );
     }
