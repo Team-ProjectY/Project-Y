@@ -1883,7 +1883,9 @@ GameObject:
   - component: {fileID: 1191402133}
   - component: {fileID: 1191402136}
   - component: {fileID: 1191402135}
+  - component: {fileID: 1191402139}
   - component: {fileID: 1191402137}
+  - component: {fileID: 1191402138}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1999,6 +2001,38 @@ MonoBehaviour:
   _enablePanel: {fileID: 0}
   _disablePanel: {fileID: 0}
   _nextSceneName: 
+--- !u!114 &1191402138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191402132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7f2a4fb2bcaa004687969c686f6ae3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiAnimaType: -1
+  _canvasGroup: {fileID: 1191402139}
+  _fadeInDuration: 0.3
+  _fadeOutDuration: 0.3
+  _scaleInDuration: 0.3
+  _scaleOutDuration: 0.3
+  _moveOffset: {x: 0, y: 0, z: 0}
+  _moveDuration: 0.3
+--- !u!225 &1191402139
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191402132}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1422053116
 GameObject:
   m_ObjectHideFlags: 0
