@@ -7,12 +7,12 @@ public class CameraHeightController : MonoBehaviour
     [SerializeField] private float _proneY = 0.5f;
     [SerializeField] private float _speed = 10f;
 
-    [SerializeField] MonoBehaviour postureProviderComponent;
-    IPostureProvider _postureProvider;
+    [SerializeField] private MonoBehaviour _postureProviderComponent;
+    private IPostureProvider _postureProvider;
 
     void Awake()
     {
-        _postureProvider = postureProviderComponent as IPostureProvider;
+        _postureProvider = _postureProviderComponent as IPostureProvider;
     }
 
     void Update()

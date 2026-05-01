@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour, IPostureProvider
     /// <summary>
     /// 카메라 기준 이동 처리
     /// </summary>
-    void HandleMovement()
+    private void HandleMovement()
     {
         Vector3 forward = _cam.forward;
         Vector3 right = _cam.right;
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour, IPostureProvider
     /// 점프 처리 (지면 체크 포함)
     /// 웅크리거나 엎드린 상태에서는 점프가 안됨
     /// </summary>
-    void HandleJump()
+    private void HandleJump()
     {
         if (Posture != PostureState.Standing)
             return;

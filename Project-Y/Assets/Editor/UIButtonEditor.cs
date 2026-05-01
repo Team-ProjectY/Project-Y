@@ -6,25 +6,25 @@ using UnityEngine;
 [CanEditMultipleObjects]
 public class UIButtonEditor : ButtonEditor
 {
-    SerializedProperty clickSound;
-    SerializedProperty hoverSound;
+    private SerializedProperty _clickSound;
+    private SerializedProperty _hoverSound;
 
-    SerializedProperty buttonType;
-    SerializedProperty enableObject;
-    SerializedProperty disableObject;
-    SerializedProperty nextSceneName;
+    private SerializedProperty _buttonType;
+    private SerializedProperty _enableObject;
+    private SerializedProperty _disableObject;
+    private SerializedProperty _nextSceneName;
 
     protected override void OnEnable()
     {
         base.OnEnable();
 
-        clickSound = serializedObject.FindProperty("clickSound");
-        hoverSound = serializedObject.FindProperty("hoverSound");
+        _clickSound = serializedObject.FindProperty("clickSound");
+        _hoverSound = serializedObject.FindProperty("hoverSound");
 
-        buttonType = serializedObject.FindProperty("buttonType");
-        enableObject = serializedObject.FindProperty("enableObject");
-        disableObject = serializedObject.FindProperty("disableObject");
-        nextSceneName = serializedObject.FindProperty("nextSceneName");
+        _buttonType = serializedObject.FindProperty("buttonType");
+        _enableObject = serializedObject.FindProperty("enableObject");
+        _disableObject = serializedObject.FindProperty("disableObject");
+        _nextSceneName = serializedObject.FindProperty("nextSceneName");
     }
 
     public override void OnInspectorGUI()
@@ -34,33 +34,33 @@ public class UIButtonEditor : ButtonEditor
         // ===== Sound =====
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Sound", EditorStyles.boldLabel);
-        EditorGUILayout.PropertyField(clickSound);
-        EditorGUILayout.PropertyField(hoverSound);
+        EditorGUILayout.PropertyField(_clickSound);
+        EditorGUILayout.PropertyField(_hoverSound);
 
         // ===== Button Logic =====
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Button Logic", EditorStyles.boldLabel);
-        EditorGUILayout.PropertyField(buttonType);
+        EditorGUILayout.PropertyField(_buttonType);
 
-        ButtonType type = (ButtonType)buttonType.enumValueIndex;
+        ButtonType type = (ButtonType)_buttonType.enumValueIndex;
 
         switch (type)
         {
             case ButtonType.ChangeCanvas:
-                EditorGUILayout.PropertyField(disableObject, new GUIContent("Object To Disable"));
-                EditorGUILayout.PropertyField(enableObject, new GUIContent("Object To Enable"));
+                EditorGUILayout.PropertyField(_disableObject, new GUIContent("Object To Disable"));
+                EditorGUILayout.PropertyField(_enableObject, new GUIContent("Object To Enable"));
                 break;
 
             case ButtonType.OpenPopup:
-                EditorGUILayout.PropertyField(enableObject, new GUIContent("Popup To Open"));
+                EditorGUILayout.PropertyField(_enableObject, new GUIContent("Popup To Open"));
                 break;
 
             case ButtonType.ClosePopup:
-                EditorGUILayout.PropertyField(disableObject, new GUIContent("Popup To Close"));
+                EditorGUILayout.PropertyField(_disableObject, new GUIContent("Popup To Close"));
                 break;
 
             case ButtonType.GoScene:
-                EditorGUILayout.PropertyField(nextSceneName, new GUIContent("Scene Name"));
+                EditorGUILayout.PropertyField(_nextSceneName, new GUIContent("Scene Name"));
                 break;
 
             case ButtonType.Quit:
