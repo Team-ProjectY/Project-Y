@@ -10,21 +10,21 @@ public class UIButtonEditor : ButtonEditor
     private SerializedProperty _hoverSound;
 
     private SerializedProperty _buttonType;
-    private SerializedProperty _enableObject;
-    private SerializedProperty _disableObject;
+    private SerializedProperty _enablePanel;
+    private SerializedProperty _disablePanel;
     private SerializedProperty _nextSceneName;
 
     protected override void OnEnable()
     {
         base.OnEnable();
 
-        _clickSound = serializedObject.FindProperty("clickSound");
-        _hoverSound = serializedObject.FindProperty("hoverSound");
+        _clickSound = serializedObject.FindProperty("_clickSound");
+        _hoverSound = serializedObject.FindProperty("_hoverSound");
 
-        _buttonType = serializedObject.FindProperty("buttonType");
-        _enableObject = serializedObject.FindProperty("enableObject");
-        _disableObject = serializedObject.FindProperty("disableObject");
-        _nextSceneName = serializedObject.FindProperty("nextSceneName");
+        _buttonType = serializedObject.FindProperty("_buttonType");
+        _enablePanel = serializedObject.FindProperty("_enablePanel");
+        _disablePanel = serializedObject.FindProperty("_disablePanel");
+        _nextSceneName = serializedObject.FindProperty("_nextSceneName");
     }
 
     public override void OnInspectorGUI()
@@ -47,16 +47,16 @@ public class UIButtonEditor : ButtonEditor
         switch (type)
         {
             case ButtonType.ChangeCanvas:
-                EditorGUILayout.PropertyField(_disableObject, new GUIContent("Object To Disable"));
-                EditorGUILayout.PropertyField(_enableObject, new GUIContent("Object To Enable"));
+                EditorGUILayout.PropertyField(_disablePanel, new GUIContent("Panel To Disable"));
+                EditorGUILayout.PropertyField(_enablePanel, new GUIContent("Panel To Enable"));
                 break;
 
             case ButtonType.OpenPopup:
-                EditorGUILayout.PropertyField(_enableObject, new GUIContent("Popup To Open"));
+                EditorGUILayout.PropertyField(_enablePanel, new GUIContent("Popup To Open"));
                 break;
 
             case ButtonType.ClosePopup:
-                EditorGUILayout.PropertyField(_disableObject, new GUIContent("Popup To Close"));
+                EditorGUILayout.PropertyField(_disablePanel, new GUIContent("Popup To Close"));
                 break;
 
             case ButtonType.GoScene:
