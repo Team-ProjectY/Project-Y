@@ -220,7 +220,6 @@ public class UIAnimator : MonoBehaviour
             ? _baseAnchoredPosition
             : _baseAnchoredPosition + new Vector2(_moveOffset.x, _moveOffset.y);
 
-        Debug.Log(targetPosition);
         if (duration <= 0f)
         {
             _rectTransform.anchoredPosition = targetPosition;
