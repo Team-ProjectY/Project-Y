@@ -58,12 +58,12 @@ public class UIButton : Button
 
             case ButtonType.OpenPopup:
                 if (_enablePanel != null)
-                    _enablePanel.Open(true);
+                    _enablePanel.Open();
                 break;
 
             case ButtonType.ClosePopup:
                 if (_disablePanel != null)
-                    _disablePanel.Close(true);
+                    _disablePanel.Close();
                 break;
 
             case ButtonType.GoScene:
@@ -88,9 +88,9 @@ public class UIButton : Button
     private void ChangePanel()
     {
         if (_disablePanel != null)
-            _disablePanel.Close(true);
+            _disablePanel.Close();
 
         if (_enablePanel != null)
-            _enablePanel.Open(true);
+            _enablePanel.Open();
     }
 }

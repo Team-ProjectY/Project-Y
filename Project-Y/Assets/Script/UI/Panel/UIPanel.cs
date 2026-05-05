@@ -31,7 +31,7 @@ public class UIPanel : MonoBehaviour
     private void Start()
     {
         if (_baseEnabled)
-            Open(_useFadeByDefault);
+            Open();
         else
             Close(false);
     }
@@ -46,7 +46,7 @@ public class UIPanel : MonoBehaviour
         Close(_useFadeByDefault);
     }
 
-    public void Open(bool useFade)
+    private void Open(bool useFade)
     {
         _activeTween?.Kill();
         _stepTween?.Kill();
@@ -74,7 +74,7 @@ public class UIPanel : MonoBehaviour
         });
     }
 
-    public void Close(bool useFade)
+    private void Close(bool useFade)
     {
         _activeTween?.Kill();
         SetInteraction(false);
