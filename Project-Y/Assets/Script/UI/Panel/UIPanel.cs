@@ -1,114 +1,170 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class UIPanel : MonoBehaviour
 {
-    // 패널 표시와 입력 차단을 함께 제어한다.
     [SerializeField] private CanvasGroup _canvasGroup;
-
-    // 시작하자마자 열어 둘지 결정하는 기본 상태값.
     [SerializeField] private bool _baseEnabled = false;
 
-    [Header("애니메이션 설정")]
-    // 페이드 인/아웃 재생 시간(초).
+    [Header("Fade")]
     [SerializeField] private float _duration = 0.2f;
-    // 첫 Open 호출 시 페이드 사용 여부.
     [SerializeField] private bool _useFadeByDefault = true;
 
-    // 현재 재생 중인 전환 Tween.
-    private Tween _activeTween;
+    [Header("Events")]
+    [SerializeField] private UnityEvent _onOpened;
+    [SerializeField] private UnityEvent _onClosed;
+    [SerializeField] private float _stepDelay = 0.1f;
+    [SerializeField] private UnityEvent[] _onOpenedSteps;
+    [SerializeField] private UnityEvent[] _onClosedSteps;
 
-    void Awake()
+    private Tween _activeTween;
+    private Tween _stepTween;
+
+    private void Awake()
     {
         if (_canvasGroup == null)
             _canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    void Start()
+    private void Start()
     {
         if (_baseEnabled)
             Open(_useFadeByDefault);
         else
-            // 첫 닫기는 무조건 애니메이션 없이 동작한다
             Close(false);
+    }
+
+    public void Open()
+    {
+        Open(_useFadeByDefault);
+    }
+
+    public void Close()
+    {
+        Close(_useFadeByDefault);
     }
 
     public void Open(bool useFade)
     {
         _activeTween?.Kill();
+        _stepTween?.Kill();
 
-        // 닫혀 있던 패널은 먼저 켠 뒤에 Fade를 재생한다.
-        if (gameObject.activeSelf == false)
+        // Open 순차 실행 전에 대상 애니메이터를 닫힌 상태로 맞춰 플래시를 방지
+        PrimeOpenedStepAnimators();
+
+        if (!gameObject.activeSelf)
             gameObject.SetActive(true);
 
         SetInteraction(true);
-        _activeTween = CreateFadeInOutTween(true, useFade);
+        _activeTween = CreateFadeTween(true, useFade);
+
+        if (_activeTween == null)
+        {
+            _onOpened?.Invoke();
+            PlayStepsSequentially(_onOpenedSteps);
+            return;
+        }
+
+        _activeTween.OnComplete(() =>
+        {
+            _onOpened?.Invoke();
+            PlayStepsSequentially(_onOpenedSteps);
+        });
     }
 
     public void Close(bool useFade)
     {
         _activeTween?.Kill();
-
-        // 닫히는 동안 중복 입력이 들어오지 않게 먼저 막는다.
         SetInteraction(false);
 
-        _activeTween = CreateFadeInOutTween(true, useFade);
-
+        _activeTween = CreateFadeTween(false, useFade);
         if (_activeTween == null)
         {
+            _onClosed?.Invoke();
+            PlayStepsSequentially(_onClosedSteps);
             gameObject.SetActive(false);
             return;
         }
 
         _activeTween.OnComplete(() =>
         {
+            _onClosed?.Invoke();
+            PlayStepsSequentially(_onClosedSteps);
             gameObject.SetActive(false);
         });
     }
 
-    /// <summary>
-    /// 캔버스의 상호작용을 수정합니다
-    /// </summary>
-    /// <param name="isInteractable">상호작용 여부</param>
-    private void SetInteraction(bool isInteractable)
+    private Tween CreateFadeTween(bool isOpen, bool useFade)
     {
-        _canvasGroup.interactable = isInteractable;
-        _canvasGroup.blocksRaycasts = isInteractable;
-    }
-
-    /// <summary>
-    /// FadeInOut의 Tween을 제작합니다
-    /// </summary>
-    /// <param name="isOpen">캔버스를 여는거면 true 아니면 false를 씁니다</param>
-    /// <param name="useAnimation">애니메이션 사용 여부를 결정합니다</param>
-    /// <returns>애니메이션을 사용하지 않으면 null을 반환합니다</returns>
-    private Tween CreateFadeInOutTween(bool isOpen, bool useAnimation)
-    {
-        if (!useAnimation || _duration <= 0f)
+        if (!useFade || _duration <= 0f)
         {
             SetVisibleState(isOpen);
             return null;
         }
 
         SetVisibleState(!isOpen);
-
         float targetAlpha = isOpen ? 1f : 0f;
         return _canvasGroup.DOFade(targetAlpha, _duration).SetUpdate(true);
     }
 
-    private void OnDestroy()
+    private void SetInteraction(bool isInteractable)
     {
-        // 오브젝트가 제거될 때 남아 있는 Tween도 같이 정리한다.
-        _activeTween?.Kill();
+        _canvasGroup.interactable = isInteractable;
+        _canvasGroup.blocksRaycasts = isInteractable;
     }
 
-    /// <summary>
-    /// CanvasGroup의 알파값을 0 또는 1로 정합니다.
-    /// </summary>
-    /// <param name="isVisible">캔버스가 보이는지 여부를 정합니다</param>
     private void SetVisibleState(bool isVisible)
     {
         _canvasGroup.alpha = isVisible ? 1f : 0f;
+    }
+
+    private void OnDestroy()
+    {
+        _activeTween?.Kill();
+        _stepTween?.Kill();
+    }
+
+    private void PlayStepsSequentially(UnityEvent[] steps)
+    {
+        if (steps == null || steps.Length == 0)
+            return;
+
+        _stepTween?.Kill();
+        Sequence sequence = DOTween.Sequence().SetUpdate(true);
+
+        for (int i = 0; i < steps.Length; i++)
+        {
+            int index = i;
+            sequence.AppendCallback(() => steps[index]?.Invoke());
+
+            if (i < steps.Length - 1)
+                sequence.AppendInterval(_stepDelay);
+        }
+
+        _stepTween = sequence;
+    }
+
+    private void PrimeOpenedStepAnimators()
+    {
+        if (_onOpenedSteps == null || _onOpenedSteps.Length == 0)
+            return;
+
+        for (int i = 0; i < _onOpenedSteps.Length; i++)
+        {
+            UnityEvent evt = _onOpenedSteps[i];
+            if (evt == null)
+                continue;
+
+            int count = evt.GetPersistentEventCount();
+            for (int j = 0; j < count; j++)
+            {
+                Object target = evt.GetPersistentTarget(j);
+                string method = evt.GetPersistentMethodName(j);
+                if (target is UIAnimator animator && method == nameof(UIAnimator.Open))
+                    animator.SetClosedStateImmediate();
+            }
+        }
     }
 }

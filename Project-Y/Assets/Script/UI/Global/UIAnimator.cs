@@ -1,11 +1,11 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 /// <summary>
 /// 각 UI요소에 부착되는 애니메이터다.
 /// 독립적으로 실행 될 수는 없고,
 /// 위에 패널이나 캔버스에 있는 UIPanel스크립트의 참조되어서 Open과 Close가 호출된다. 
-/// 
 /// </summary>
 [RequireComponent(typeof(CanvasGroup))]
 public class UIAnimator : MonoBehaviour
@@ -27,10 +27,11 @@ public class UIAnimator : MonoBehaviour
     [SerializeField] private float _moveDuration = 0.3f;
 
     private RectTransform _rectTransform;
-    private Vector3 _baseLocalPosition;
+    private Vector2 _baseAnchoredPosition;
     private Vector3 _baseLocalScale;
     private Tween _activeTween;
     private bool _isOpen;
+    private bool _hasLayoutDriver;
 
     private void Awake()
     {
@@ -38,8 +39,10 @@ public class UIAnimator : MonoBehaviour
             _canvasGroup = GetComponent<CanvasGroup>();
 
         _rectTransform = transform as RectTransform;
-        _baseLocalPosition = transform.localPosition;
+        if (_rectTransform != null)
+            _baseAnchoredPosition = _rectTransform.anchoredPosition;
         _baseLocalScale = transform.localScale;
+        _hasLayoutDriver = GetComponent<LayoutGroup>() != null || GetComponent<ContentSizeFitter>() != null;
         _isOpen = DetermineOpenStateFromCurrentValues();
     }
 
@@ -48,10 +51,11 @@ public class UIAnimator : MonoBehaviour
     /// </summary>
     public void Open()
     {
-        // 이미 열린 상태면 중복 Open 애니메이션을 실행하지 않음
-        if (_isOpen)
-            return;
+        // 순차 대기 중 숨겨져 있던 요소를 열기 시작 시점에 표시
+        if (_canvasGroup != null && !HasType(UIAnimaType.FadeInOut))
+            _canvasGroup.alpha = 1f;
 
+        // Open은 항상 재생되도록 처리하여 순차 연출을 보장
         PlayTransition(true);
     }
 
@@ -65,6 +69,39 @@ public class UIAnimator : MonoBehaviour
             return;
 
         PlayTransition(false);
+    }
+
+    /// <summary>
+    /// 애니메이션 재생 없이 닫힌 비주얼 상태를 즉시 적용합니다.
+    /// </summary>
+    public void SetClosedStateImmediate()
+    {
+        _activeTween?.Kill();
+        _isOpen = false;
+        if (_canvasGroup != null)
+            _canvasGroup.alpha = 0f;
+        ApplyImmediateState(false);
+    }
+
+    /// <summary>
+    /// 현재 설정 기준 Open/Close 시 소요될 최대 애니메이션 시간을 반환합니다.
+    /// </summary>
+    /// <param name="isOpen">열기 기준이면 true, 닫기 기준이면 false</param>
+    /// <returns>예상 최대 소요 시간(초)</returns>
+    public float GetDuration(bool isOpen)
+    {
+        float duration = 0f;
+
+        if (HasType(UIAnimaType.FadeInOut))
+            duration = Mathf.Max(duration, isOpen ? _fadeInDuration : _fadeOutDuration);
+
+        if (HasType(UIAnimaType.ScaleInOut))
+            duration = Mathf.Max(duration, isOpen ? _scaleInDuration : _scaleOutDuration);
+
+        if (HasType(UIAnimaType.Moving))
+            duration = Mathf.Max(duration, _moveDuration);
+
+        return duration;
     }
 
     /// <summary>
@@ -173,25 +210,28 @@ public class UIAnimator : MonoBehaviour
     {
         if (!HasType(UIAnimaType.Moving))
             return;
+        if (_rectTransform == null)
+            return;
+        if (_hasLayoutDriver)
+            return;
 
         float duration = _moveDuration;
-        Vector3 targetPosition = isOpen ? _baseLocalPosition : _baseLocalPosition + _moveOffset;
+        Vector2 targetPosition = isOpen
+            ? _baseAnchoredPosition
+            : _baseAnchoredPosition + new Vector2(_moveOffset.x, _moveOffset.y);
 
+        Debug.Log(targetPosition);
         if (duration <= 0f)
         {
-            transform.localPosition = targetPosition;
+            _rectTransform.anchoredPosition = targetPosition;
             return;
         }
 
         // 열기 시 오프셋 위치에서 기준 위치로 이동
         if (isOpen)
-            transform.localPosition = _baseLocalPosition + _moveOffset;
+            _rectTransform.anchoredPosition = _baseAnchoredPosition + new Vector2(_moveOffset.x, _moveOffset.y);
 
-        // UI 계층은 RectTransform 이동을 우선 적용
-        if (_rectTransform != null)
-            sequence.Join(_rectTransform.DOLocalMove(targetPosition, duration));
-        else
-            sequence.Join(transform.DOLocalMove(targetPosition, duration));
+        sequence.Join(_rectTransform.DOAnchorPos(targetPosition, duration));
     }
 
     /// <summary>
@@ -206,8 +246,10 @@ public class UIAnimator : MonoBehaviour
         if (HasType(UIAnimaType.ScaleInOut))
             transform.localScale = isOpen ? _baseLocalScale : Vector3.zero;
 
-        if (HasType(UIAnimaType.Moving))
-            transform.localPosition = isOpen ? _baseLocalPosition : _baseLocalPosition + _moveOffset;
+        if (HasType(UIAnimaType.Moving) && _rectTransform != null && !_hasLayoutDriver)
+            _rectTransform.anchoredPosition = isOpen
+                ? _baseAnchoredPosition
+                : _baseAnchoredPosition + new Vector2(_moveOffset.x, _moveOffset.y);
     }
 
     /// <summary>
@@ -228,7 +270,10 @@ public class UIAnimator : MonoBehaviour
     {
         bool visibleOpen = !HasType(UIAnimaType.FadeInOut) || _canvasGroup == null || _canvasGroup.alpha >= 0.99f;
         bool scaleOpen = !HasType(UIAnimaType.ScaleInOut) || Vector3.Distance(transform.localScale, _baseLocalScale) <= 0.0001f;
-        bool moveOpen = !HasType(UIAnimaType.Moving) || Vector3.Distance(transform.localPosition, _baseLocalPosition) <= 0.0001f;
+        bool moveOpen = !HasType(UIAnimaType.Moving)
+                        || _rectTransform == null
+                        || _hasLayoutDriver
+                        || Vector2.Distance(_rectTransform.anchoredPosition, _baseAnchoredPosition) <= 0.0001f;
         return visibleOpen && scaleOpen && moveOpen;
     }
 }

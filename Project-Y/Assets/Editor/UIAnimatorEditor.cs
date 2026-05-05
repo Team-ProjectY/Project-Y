@@ -5,13 +5,10 @@ using UnityEngine;
 [CustomEditor(typeof(UIAnimator))]
 public class UIAnimatorEditor : Editor
 {
-    private SerializedProperty _canvasGroup;
-
-    private SerializedProperty _panelData;
-
     private SerializedProperty _uiAnimaType;
 
     /// <summary> FadeInOut필드 </summary>
+    private SerializedProperty _canvasGroup;
     private SerializedProperty _fadeInDuration;
     private SerializedProperty _fadeOutDuration;
 
