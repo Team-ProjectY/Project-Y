@@ -594,7 +594,7 @@ MonoBehaviour:
   _crouchY: 0
   _proneY: -0.5
   _speed: 10
-  postureProviderComponent: {fileID: 1403663176}
+  _postureProviderComponent: {fileID: 1403663176}
 --- !u!114 &1049936029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,7 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b1805189df409243972f298099b88fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sensitivity: 3
+  _sensitivity: 6
   _requestIngameCursor: 1
   _requestOnEnable: 1
   _requestOnFocus: 1
@@ -658,18 +658,18 @@ MonoBehaviour:
   _moveThreshold: 0.1
   _walkReferenceSpeed: 4
   _runReferenceSpeed: 7
-  _walkFrequency: 20
-  _runFrequency: 30
+  _walkFrequency: 10
+  _runFrequency: 15
   _walkAmplitude: {x: 0.02, y: 0.08, z: 0.016}
   _runAmplitude: {x: 0.04, y: 0.15, z: 0.028}
   _intensity: 1
   _recoverSpeed: 10
   _disableLateralPositionOffset: 1
-  _walkYawAngle: 15
-  _runYawAngle: 15
-  _walkRollAngle: 3.6
-  _runRollAngle: 6.6
-  _rotationApplySpeed: 12
+  _walkYawAngle: 1.5
+  _runYawAngle: 3
+  _walkRollAngle: 10
+  _runRollAngle: 15
+  _rotationApplySpeed: 5
   _rotationRecoverSpeed: 10
   _standingMultiplier: 1
   _crouchingMultiplier: 0.6
@@ -895,10 +895,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 48c51609-83fa-45b1-ae50-22111605bf5f
     m_ActionName: 'Player/Weapon/Reload[/Keyboard/r]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 77e6a732-e564-4604-a5ea-1b8398f06226
-    m_ActionName: UI/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -987,7 +983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 1403663176}
-  __cameraLookController: {fileID: 1049936031}
+  _cameraLookController: {fileID: 1049936031}
   _weaponController: {fileID: 504761507}
 --- !u!114 &1403663174
 MonoBehaviour:
