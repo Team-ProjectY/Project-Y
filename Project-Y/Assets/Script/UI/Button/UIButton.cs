@@ -5,30 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class UIButton : Button
 {
-    [SerializeField] private AudioClip clickSound;
-    [SerializeField] private AudioClip hoverSound;
+    [SerializeField] private AudioClip _clickSound;
+    [SerializeField] private AudioClip _hoverSound;
 
-    [SerializeField] private ButtonType buttonType;
+    [SerializeField] private ButtonType _buttonType;
 
-    [SerializeField] private GameObject enableObject;
-    [SerializeField] private GameObject disableObject;
+    [SerializeField] private UIPanel _enablePanel;
+    [SerializeField] private UIPanel _disablePanel;
 
-    [SerializeField] private string nextSceneName;
+    [SerializeField] private string _nextSceneName;
 
-    private SoundManager soundManager;
+    private SoundManager _soundManager;
 
     protected override void Start()
     {
         base.Start();
-        soundManager = SoundManager.Instance;
+        _soundManager = SoundManager.Instance;
     }
 
     public override void OnPointerEnter(PointerEventData eventData)
     {
         base.OnPointerEnter(eventData);
 
-        if (hoverSound != null)
-            soundManager.SFXPlay(hoverSound);
+        if (_hoverSound != null)
+            _soundManager.SFXPlay(_hoverSound);
     }
 
     public override void OnPointerClick(PointerEventData eventData)
@@ -46,28 +46,28 @@ public class UIButton : Button
     private void HandleClick()
     {
         // 사운드
-        if (clickSound != null)
-            soundManager.SFXPlay(clickSound);
+        if (_clickSound != null)
+            _soundManager.SFXPlay(_clickSound);
 
         // 타입별 동작
-        switch (buttonType)
+        switch (_buttonType)
         {
             case ButtonType.ChangeCanvas:
-                ChangeObject();
+                ChangePanel();
                 break;
 
             case ButtonType.OpenPopup:
-                if (enableObject != null)
-                    enableObject.SetActive(true);
+                if (_enablePanel != null)
+                    _enablePanel.Open();
                 break;
 
             case ButtonType.ClosePopup:
-                if (disableObject != null)
-                    disableObject.SetActive(false);
+                if (_disablePanel != null)
+                    _disablePanel.Close();
                 break;
 
             case ButtonType.GoScene:
-                SceneManager.LoadScene(nextSceneName);
+                SceneManager.LoadScene(_nextSceneName);
                 break;
 
             case ButtonType.Quit:
@@ -85,21 +85,12 @@ public class UIButton : Button
 #endif
     }
 
-    private void ChangeObject()
+    private void ChangePanel()
     {
-        if (disableObject != null)
-            disableObject.SetActive(false);
+        if (_disablePanel != null)
+            _disablePanel.Close();
 
-        if (enableObject != null)
-            enableObject.SetActive(true);
+        if (_enablePanel != null)
+            _enablePanel.Open();
     }
-}
-public enum ButtonType
-{
-    None,
-    ChangeCanvas,
-    OpenPopup,
-    ClosePopup,
-    GoScene,
-    Quit
 }
