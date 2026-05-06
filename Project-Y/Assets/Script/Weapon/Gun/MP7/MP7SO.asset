@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: MP7SO
   m_EditorClassIdentifier: 
   IsAutomatic: 1
-  FireRate: 0.01
-  MagazineSize: 1
-  ReloadTime: 0.1
+  FireRate: 0.1
+  MagazineSize: 100
+  ReloadTime: 2
   Range: 1
   AdsMode: 0
   AdsFovDivisor: 2

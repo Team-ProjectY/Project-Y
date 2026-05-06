@@ -5,7 +5,7 @@ public class WeaponSOData : ScriptableObject
 {
     /// <summary> 자동 사격 여부 (true: 연사, false: 단발) </summary>
     public bool IsAutomatic;
-    /// <summary> 발사 속도 (초당 발사 횟수, RPS) </summary>
+    /// <summary> 발사 간격 (초). 값이 작을수록 더 빠르게 발사됩니다. </summary>
     public float FireRate;
     /// <summary> 탄창 용량 (최대 장전 가능 탄 수) </summary>
     public int MagazineSize;
