@@ -10,13 +10,19 @@ public class WeaponSODataEditor : Editor
     private SerializedProperty _reloadTime;
     private SerializedProperty _range;
 
-    private SerializedProperty _aimMode;
-    private SerializedProperty _aimFovDivisor;
-    private SerializedProperty _aimSpeed;
-    private SerializedProperty _sensitivityMultiplier;
+    private SerializedProperty _adsMode;
+    private SerializedProperty _adsFovDivisor;
+    private SerializedProperty _adsSpeed;
+    private SerializedProperty _adsSensitivityMultiplier;
 
     private SerializedProperty _recoilX;
     private SerializedProperty _recoilY;
+
+    private SerializedProperty _ammoType;
+    private SerializedProperty _ammoSpeed;
+    private SerializedProperty _ammoDamage;
+    private SerializedProperty _ammoSpread;
+    private SerializedProperty _adsAmmoSpread;
 
     void OnEnable()
     {
@@ -26,13 +32,19 @@ public class WeaponSODataEditor : Editor
         _reloadTime = serializedObject.FindProperty("ReloadTime");
         _range = serializedObject.FindProperty("Range");
 
-        _aimMode = serializedObject.FindProperty("AimMode");
-        _aimFovDivisor = serializedObject.FindProperty("AimFovDivisor");
-        _aimSpeed = serializedObject.FindProperty("AimSpeed");
-        _sensitivityMultiplier = serializedObject.FindProperty("SensitivityMultiplier");
+        _adsMode = serializedObject.FindProperty("AdsMode");
+        _adsFovDivisor = serializedObject.FindProperty("AdsFovDivisor");
+        _adsSpeed = serializedObject.FindProperty("AdsSpeed");
+        _adsSensitivityMultiplier = serializedObject.FindProperty("AdsSensitivityMultiplier");
 
         _recoilX = serializedObject.FindProperty("RecoilX");
         _recoilY = serializedObject.FindProperty("RecoilY");
+
+        _ammoType = serializedObject.FindProperty("AmmoType");
+        _ammoSpeed = serializedObject.FindProperty("AmmoSpeed");
+        _ammoDamage = serializedObject.FindProperty("AmmoDamage");
+        _ammoSpread = serializedObject.FindProperty("AmmoSpread");
+        _adsAmmoSpread = serializedObject.FindProperty("AdsAmmoSpread");
     }
 
     public override void OnInspectorGUI()
@@ -49,16 +61,25 @@ public class WeaponSODataEditor : Editor
         Space();
 
         DrawHeader("조준", Color.white);
-        EditorGUILayout.PropertyField(_aimMode, new GUIContent("조준 타입"));
-        EditorGUILayout.Slider(_aimFovDivisor, 1f, 5f, "조준 FOV (나누기 값)");
-        EditorGUILayout.Slider(_aimSpeed, 1f, 20f, "조준 속도");
-        EditorGUILayout.Slider(_sensitivityMultiplier, 0.1f, 1f, "감도 배율");
+        EditorGUILayout.PropertyField(_adsMode, new GUIContent("조준 타입"));
+        EditorGUILayout.Slider(_adsFovDivisor, 1f, 5f, "조준 FOV (나누기 값)");
+        EditorGUILayout.Slider(_adsSpeed, 1f, 20f, "조준 속도");
+        EditorGUILayout.Slider(_adsSensitivityMultiplier, 0.1f, 1f, "감도 배율");
 
         Space();
 
         DrawHeader("반동", Color.white);
         EditorGUILayout.Slider(_recoilX, 0f, 10f, "반동 X");
         EditorGUILayout.Slider(_recoilY, 0f, 10f, "반동 Y");
+
+        Space();
+
+        DrawHeader("탄", Color.white);
+        EditorGUILayout.PropertyField(_ammoType, new GUIContent("탄 타입"));
+        EditorGUILayout.Slider(_ammoSpeed, 0f, 2000f, "탄속");
+        EditorGUILayout.Slider(_ammoDamage, 0f, 200f, "데미지");
+        EditorGUILayout.PropertyField(_ammoSpread, new GUIContent("탄 퍼짐"));
+        EditorGUILayout.PropertyField(_adsAmmoSpread, new GUIContent("조준 탄 퍼짐"));
 
         serializedObject.ApplyModifiedProperties();
     }

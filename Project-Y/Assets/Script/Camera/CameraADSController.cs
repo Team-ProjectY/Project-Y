@@ -24,7 +24,7 @@ public class CameraADSController : MonoBehaviour, IADSController
 
     public void StartADS(WeaponSOData data)
     {
-        _targetFov = _defaultFov / data.AimFovDivisor;
+        _targetFov = _defaultFov / data.AdsFovDivisor;
     }
 
     public void EndADS()

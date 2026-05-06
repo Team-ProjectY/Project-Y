@@ -16,17 +16,30 @@ public class WeaponSOData : ScriptableObject
 
 
     /// <summary> 조준 방식 </summary>
-    public AimMode AimMode;
+    public AimMode AdsMode;
     /// <summary> 조준 시 FOV 나누기 값 (1 = 변화 없음, 클수록 줌인 강함) </summary>
-    public float AimFovDivisor = 2f;
+    public float AdsFovDivisor = 2f;
     /// <summary> ADS 전환 속도 (값이 클수록 빠르게 전환) </summary>
-    public float AimSpeed = 10f;
+    public float AdsSpeed = 10f;
     /// <summary> ADS 시 감도 배율 (마우스 감도 감소 비율) </summary>
-    public float SensitivityMultiplier = 0.5f;
+    public float AdsSensitivityMultiplier = 0.5f;
 
 
     /// <summary> 수직 반동 값 (위로 튀는 힘) </summary>
     public float RecoilX;
     /// <summary> 수평 반동 값 (좌우 흔들림) </summary>
     public float RecoilY;
+
+
+    /// <summary> 사용하는 총알 타입 </summary>
+    public AmmoCaliber AmmoType;
+    /// <summary> 탄속 </summary>
+    public float AmmoSpeed;
+    /// <summary> 총알 데미지 </summary>
+    public float AmmoDamage;
+    /// <summary> 탄 퍼짐 </summary>
+    public Vector2 AmmoSpread;
+    /// <summary> ADS시 탄 퍼짐 </summary>
+    public Vector2 AdsAmmoSpread;
+
 }

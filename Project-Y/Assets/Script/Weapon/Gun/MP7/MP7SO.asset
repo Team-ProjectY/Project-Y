@@ -12,14 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 536fc8c18d6e68946abc34611b8aebfb, type: 3}
   m_Name: MP7SO
   m_EditorClassIdentifier: 
-  IsAutomatic: 0
+  IsAutomatic: 1
   FireRate: 0.01
   MagazineSize: 1
   ReloadTime: 0.1
   Range: 1
-  AimMode: 0
-  AimFovDivisor: 1.2
-  AimSpeed: 1
-  SensitivityMultiplier: 0.1
+  AdsMode: 0
+  AdsFovDivisor: 2
+  AdsSpeed: 10
+  AdsSensitivityMultiplier: 0.5
   RecoilX: 2
   RecoilY: 0
+  AmmoType: 0
+  AmmoSpeed: 0
+  AmmoDamage: 0
+  AmmoSpread: {x: 0, y: 0}
+  AdsAmmoSpread: {x: 0, y: 0}
